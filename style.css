@@ -98,3 +98,88 @@ body {
   font-size: 14px;
   color: var(--text-subtitle);
 }
+
+.kit-arrow {
+  margin-left: auto;
+  padding-left: 16px;
+  color: var(--orange);
+  font-size: 20px;
+  line-height: 1;
+}
+
+.back-link {
+  display: inline-block;
+  margin-bottom: 32px;
+  color: var(--text-subtitle);
+  text-decoration: none;
+  font-size: 14px;
+}
+
+.back-link:hover {
+  color: var(--orange);
+}
+
+.page-title {
+  margin: 0 0 4px;
+  font-size: 32px;
+  font-weight: 800;
+  letter-spacing: 0.01em;
+}
+
+.page-sub {
+  margin: 0 0 40px;
+  font-size: 15px;
+  color: var(--text-subtitle);
+}
+
+.session-list {
+  list-style: none;
+  margin: 0 0 32px;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.session-card {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: 16px;
+  padding: 18px 24px;
+}
+
+.session-no {
+  font-family: "Courier New", ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--orange);
+  flex-shrink: 0;
+}
+
+.session-text {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.session-title {
+  font-size: 17px;
+  font-weight: 700;
+}
+
+.session-desc {
+  font-size: 14px;
+  color: var(--text-subtitle);
+}
+
+.note {
+  font-size: 14px;
+  line-height: 1.6;
+  color: var(--text-subtitle);
+  border-left: 2px solid var(--card-border);
+  padding-left: 16px;
+  margin: 0;
+}
