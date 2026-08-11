@@ -20,9 +20,16 @@ body {
   background-size: 48px 48px;
   font-family: "Nunito", "Figtree", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   color: var(--text-title);
+  line-height: 1.6;
 }
 
+/* ---------- Header ---------- */
 .topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
   padding: 24px 32px;
 }
 
@@ -32,9 +39,21 @@ body {
   display: block;
 }
 
+.collab {
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-subtitle);
+}
+
+.collab strong {
+  color: var(--text-title);
+}
+
+/* ---------- Sections ---------- */
 .hero {
-  padding: 64px 32px 96px;
-  max-width: 720px;
+  padding: 48px 32px;
+  max-width: 760px;
   margin: 0 auto;
 }
 
@@ -45,9 +64,9 @@ body {
   color: var(--orange);
   font-family: "Courier New", ui-monospace, SFMono-Regular, Menlo, monospace;
   letter-spacing: 0.12em;
-  font-size: 14px;
+  font-size: 13px;
   font-weight: 700;
-  margin: 0 0 40px;
+  margin: 0 0 24px;
 }
 
 .eyebrow .dash {
@@ -55,8 +74,105 @@ body {
   height: 2px;
   background: var(--orange);
   display: inline-block;
+  flex-shrink: 0;
 }
 
+.page-title {
+  margin: 0 0 4px;
+  font-size: 40px;
+  line-height: 1.15;
+  font-weight: 800;
+  letter-spacing: 0.01em;
+}
+
+.section-title {
+  margin: 0 0 16px;
+  font-size: 26px;
+  line-height: 1.3;
+  font-weight: 800;
+}
+
+.tagline {
+  margin: 0 0 24px;
+  font-size: 17px;
+  color: var(--orange);
+  font-weight: 600;
+}
+
+.lead {
+  margin: 0 0 32px;
+  font-size: 15px;
+  color: var(--text-subtitle);
+}
+
+.note {
+  font-size: 14px;
+  color: var(--text-subtitle);
+  border-left: 2px solid var(--card-border);
+  padding-left: 16px;
+  margin: 32px 0 0;
+}
+
+.back-link {
+  display: inline-block;
+  margin-bottom: 32px;
+  color: var(--text-subtitle);
+  text-decoration: none;
+  font-size: 14px;
+}
+
+.back-link:hover { color: var(--orange); }
+
+/* ---------- Stats & pills ---------- */
+.stats {
+  list-style: none;
+  margin: 0 0 24px;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.stats li {
+  flex: 1 1 140px;
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: 14px;
+  padding: 16px 18px;
+}
+
+.stats strong {
+  display: block;
+  font-size: 24px;
+  font-weight: 800;
+  color: var(--orange);
+}
+
+.stats span {
+  font-size: 12px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--text-subtitle);
+}
+
+.pills {
+  list-style: none;
+  margin: 0 0 40px;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.pills li {
+  border: 1px solid var(--card-border);
+  border-radius: 999px;
+  padding: 6px 14px;
+  font-size: 13px;
+  color: var(--text-subtitle);
+}
+
+/* ---------- Kit card / CTA ---------- */
 .kit-card {
   display: flex;
   align-items: center;
@@ -88,9 +204,8 @@ body {
 }
 
 .kit-title {
-  font-size: 20px;
+  font-size: 19px;
   font-weight: 800;
-  letter-spacing: 0.02em;
   color: var(--text-title);
 }
 
@@ -107,43 +222,18 @@ body {
   line-height: 1;
 }
 
-.back-link {
-  display: inline-block;
-  margin-bottom: 32px;
-  color: var(--text-subtitle);
-  text-decoration: none;
-  font-size: 14px;
-}
-
-.back-link:hover {
-  color: var(--orange);
-}
-
-.page-title {
-  margin: 0 0 4px;
-  font-size: 32px;
-  font-weight: 800;
-  letter-spacing: 0.01em;
-}
-
-.page-sub {
-  margin: 0 0 40px;
-  font-size: 15px;
-  color: var(--text-subtitle);
-}
-
-.session-list {
+/* ---------- Reasons ---------- */
+.reason-list {
   list-style: none;
-  margin: 0 0 32px;
+  margin: 0;
   padding: 0;
   display: flex;
   flex-direction: column;
   gap: 12px;
 }
 
-.session-card {
+.reason {
   display: flex;
-  align-items: center;
   gap: 16px;
   background: var(--card-bg);
   border: 1px solid var(--card-border);
@@ -151,35 +241,222 @@ body {
   padding: 18px 24px;
 }
 
-.session-no {
+.reason-no {
   font-family: "Courier New", ui-monospace, SFMono-Regular, Menlo, monospace;
   font-size: 14px;
   font-weight: 700;
   color: var(--orange);
   flex-shrink: 0;
+  padding-top: 2px;
 }
 
-.session-text {
+.reason-body { display: flex; flex-direction: column; gap: 4px; }
+
+.reason-title { font-size: 16px; font-weight: 700; }
+
+.reason-desc { font-size: 14px; color: var(--text-subtitle); }
+
+/* ---------- Levels ---------- */
+.level {
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: 18px;
+  padding: 24px;
+  margin-bottom: 16px;
+}
+
+.level-peak { border-color: var(--orange); }
+
+.level-head {
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.level-no {
+  font-family: "Courier New", ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--orange);
+}
+
+.level-title {
+  margin: 0;
+  font-size: 21px;
+  font-weight: 800;
+}
+
+.level-count {
+  margin-left: auto;
+  font-size: 12px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--text-subtitle);
+}
+
+.level-desc {
+  margin: 0 0 16px;
+  font-size: 14px;
+  color: var(--text-subtitle);
+}
+
+.project-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 8px;
+}
+
+.project-list li {
+  position: relative;
+  padding: 8px 12px 8px 26px;
+  border: 1px solid var(--card-border);
+  border-radius: 10px;
+  font-size: 14px;
+}
+
+.project-list li::before {
+  content: "▸";
+  position: absolute;
+  left: 10px;
+  color: var(--orange);
+}
+
+/* ---------- Benefits ---------- */
+.benefit-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
   display: flex;
   flex-direction: column;
-  gap: 4px;
+  gap: 12px;
 }
 
-.session-title {
-  font-size: 17px;
+.benefit-list li {
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-left: 3px solid var(--orange);
+  border-radius: 12px;
+  padding: 16px 20px;
+  font-size: 14px;
+  color: var(--text-subtitle);
+}
+
+.benefit-list strong {
+  display: block;
+  color: var(--text-title);
+  font-size: 16px;
+  margin-bottom: 2px;
+}
+
+/* ---------- STEM ---------- */
+.stem-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 12px;
+}
+
+.stem-card {
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: 16px;
+  padding: 20px;
+}
+
+.stem-letter {
+  display: inline-block;
+  font-size: 28px;
+  font-weight: 800;
+  color: var(--orange);
+  line-height: 1;
+}
+
+.stem-name {
+  display: block;
+  font-size: 16px;
   font-weight: 700;
+  margin: 6px 0 8px;
 }
 
-.session-desc {
-  font-size: 14px;
-  color: var(--text-subtitle);
-}
-
-.note {
-  font-size: 14px;
-  line-height: 1.6;
-  color: var(--text-subtitle);
-  border-left: 2px solid var(--card-border);
-  padding-left: 16px;
+.stem-card p {
   margin: 0;
+  font-size: 14px;
+  color: var(--text-subtitle);
+}
+
+/* ---------- Components ---------- */
+.part-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 12px;
+}
+
+.part-group {
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: 16px;
+  padding: 20px;
+}
+
+.part-group h3 {
+  margin: 0 0 10px;
+  font-size: 13px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--orange);
+}
+
+.part-group ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.part-group li {
+  font-size: 14px;
+  color: var(--text-subtitle);
+}
+
+/* ---------- Footer ---------- */
+.footer {
+  border-top: 1px solid var(--card-border);
+  padding: 32px;
+  text-align: center;
+}
+
+.footer-brand {
+  margin: 0 0 6px;
+  font-weight: 700;
+  font-size: 14px;
+  letter-spacing: 0.04em;
+}
+
+.footer-contact {
+  margin: 0;
+  font-size: 13px;
+  color: var(--text-subtitle);
+}
+
+.footer-contact a {
+  color: var(--text-subtitle);
+  text-decoration: none;
+}
+
+.footer-contact a:hover { color: var(--orange); }
+
+/* ---------- Responsive ---------- */
+@media (max-width: 600px) {
+  .hero { padding: 32px 20px; }
+  .topbar { padding: 20px; }
+  .page-title { font-size: 30px; }
+  .level-count { margin-left: 0; }
 }
