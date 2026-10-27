@@ -312,7 +312,7 @@ figure .frame {
   display: grid; place-items: center;
   overflow: hidden;
 }
-figure .frame img { max-height: 100%; max-width: 100%; object-fit: contain; }
+figure .frame img { max-height: var(--h, 55mm); max-width: 100%; object-fit: contain; }
 figcaption { font-size: 8pt; color: var(--ink-soft); }
 figure.missing .frame {
   border: 1.5px dashed var(--rule);
@@ -664,15 +664,15 @@ a:focus-visible { outline: 2px solid var(--pink); outline-offset: 2px; border-ra
   <div class="step-row">
     <div class="step"><div class="k">1.1</div><div class="body">
       <h3>Components needed</h3>
-      <div class="figs"><figure><div class="frame" style="--h:42mm"><img src="https://docs.keyestudio.com/projects/KS0559/en/latest/_images/A110.png" alt="Part 1 components"></div></figure></div>
+      <div class="figs"><figure><div class="frame" style="--h:42mm"><img src="assets/keyestudio/A110.png" alt="Part 1 components"></div></figure></div>
     </div></div>
     <div class="step"><div class="k">1.2</div><div class="body">
       <h3>Installation diagram</h3>
-      <div class="figs"><figure><div class="frame" style="--h:62mm"><img src="https://docs.keyestudio.com/projects/KS0559/en/latest/_images/A210.png" alt="Part 1 installation diagram"></div></figure></div>
+      <div class="figs"><figure><div class="frame" style="--h:62mm"><img src="assets/keyestudio/A210.png" alt="Part 1 installation diagram"></div></figure></div>
     </div></div>
     <div class="step"><div class="k">1.3</div><div class="body">
       <h3>Check your prototype</h3>
-      <div class="figs"><figure><div class="frame" style="--h:42mm"><img src="https://docs.keyestudio.com/projects/KS0559/en/latest/_images/A310.png" alt="Part 1 finished prototype"></div></figure></div>
+      <div class="figs"><figure><div class="frame" style="--h:42mm"><img src="assets/keyestudio/A310.png" alt="Part 1 finished prototype"></div></figure></div>
     </div></div>
   </div>
 
@@ -696,19 +696,19 @@ a:focus-visible { outline: 2px solid var(--pink); outline-offset: 2px; border-ra
   <div class="step-row">
     <div class="step"><div class="k">2.1</div><div class="body">
       <h3>Components needed</h3>
-      <div class="figs"><figure><div class="frame" style="--h:38mm"><img src="https://docs.keyestudio.com/projects/KS0559/en/latest/_images/A4.png" alt="Part 2 components"></div></figure></div>
+      <div class="figs"><figure><div class="frame" style="--h:38mm"><img src="assets/keyestudio/A4.png" alt="Part 2 components"></div></figure></div>
     </div></div>
     <div class="step"><div class="k">2.2</div><div class="body">
       <h3>Installation diagram</h3>
       <div class="figs" style="--cols:3">
-        <figure><div class="frame" style="--h:50mm"><img src="https://docs.keyestudio.com/projects/KS0559/en/latest/_images/A51.png" alt="Part 2 installation, step A"></div><figcaption>Step A</figcaption></figure>
-        <figure><div class="frame" style="--h:50mm"><img src="https://docs.keyestudio.com/projects/KS0559/en/latest/_images/A61.png" alt="Part 2 installation, step B"></div><figcaption>Step B</figcaption></figure>
-        <figure><div class="frame" style="--h:50mm"><img src="https://docs.keyestudio.com/projects/KS0559/en/latest/_images/A71.png" alt="Part 2 installation, step C"></div><figcaption>Step C</figcaption></figure>
+        <figure><div class="frame" style="--h:50mm"><img src="assets/keyestudio/A51.png" alt="Part 2 installation, step A"></div><figcaption>Step A</figcaption></figure>
+        <figure><div class="frame" style="--h:50mm"><img src="assets/keyestudio/A61.png" alt="Part 2 installation, step B"></div><figcaption>Step B</figcaption></figure>
+        <figure><div class="frame" style="--h:50mm"><img src="assets/keyestudio/A71.png" alt="Part 2 installation, step C"></div><figcaption>Step C</figcaption></figure>
       </div>
     </div></div>
     <div class="step"><div class="k">2.3</div><div class="body">
       <h3>Check your prototype</h3>
-      <div class="figs"><figure><div class="frame" style="--h:50mm"><img src="https://docs.keyestudio.com/projects/KS0559/en/latest/_images/A8.png" alt="Part 2 finished prototype"></div></figure></div>
+      <div class="figs"><figure><div class="frame" style="--h:50mm"><img src="assets/keyestudio/A8.png" alt="Part 2 finished prototype"></div></figure></div>
     </div></div>
   </div>
 
@@ -733,19 +733,19 @@ a:focus-visible { outline: 2px solid var(--pink); outline-offset: 2px; border-ra
     <div class="step"><div class="k">3.1</div><div class="body">
       <h3>Components needed</h3>
       <div class="figs" style="--cols:2">
-        <figure><div class="frame" style="--h:40mm"><img src="https://docs.keyestudio.com/projects/KS0559/en/latest/_images/A9.png" alt="Part 3 components, set 1"></div></figure>
-        <figure><div class="frame" style="--h:40mm"><img src="https://docs.keyestudio.com/projects/KS0559/en/latest/_images/A101.png" alt="Part 3 components, set 2"></div></figure>
+        <figure><div class="frame" style="--h:40mm"><img src="assets/keyestudio/A9.png" alt="Part 3 components, set 1"></div></figure>
+        <figure><div class="frame" style="--h:40mm"><img src="assets/keyestudio/A101.png" alt="Part 3 components, set 2"></div></figure>
       </div>
     </div></div>
     <div class="step"><div class="k">3.2</div><div class="body">
       <h3>Installation diagram</h3>
-      <div class="figs"><figure><div class="frame" style="--h:52mm"><img src="https://docs.keyestudio.com/projects/KS0559/en/latest/_images/A111.png" alt="Part 3 installation diagram"></div></figure></div>
+      <div class="figs"><figure><div class="frame" style="--h:52mm"><img src="assets/keyestudio/A111.png" alt="Part 3 installation diagram"></div></figure></div>
     </div></div>
     <div class="step"><div class="k">3.3</div><div class="body">
       <h3>Plug in the wire</h3>
       <div class="figs" style="--cols:2">
-        <figure><div class="frame" style="--h:46mm"><img src="https://docs.keyestudio.com/projects/KS0559/en/latest/_images/A121.png" alt="Part 3 plugging in the wire"></div><figcaption>Plug wire</figcaption></figure>
-        <figure><div class="frame" style="--h:46mm"><img src="https://docs.keyestudio.com/projects/KS0559/en/latest/_images/A131.png" alt="Part 3 finished prototype"></div><figcaption>3.4 · Check your prototype</figcaption></figure>
+        <figure><div class="frame" style="--h:46mm"><img src="assets/keyestudio/A121.png" alt="Part 3 plugging in the wire"></div><figcaption>Plug wire</figcaption></figure>
+        <figure><div class="frame" style="--h:46mm"><img src="assets/keyestudio/A131.png" alt="Part 3 finished prototype"></div><figcaption>3.4 · Check your prototype</figcaption></figure>
       </div>
     </div></div>
   </div>
@@ -770,14 +770,14 @@ a:focus-visible { outline: 2px solid var(--pink); outline-offset: 2px; border-ra
   <div class="step-row">
     <div class="step"><div class="k">4.1</div><div class="body">
       <h3>Components needed</h3>
-      <div class="figs"><figure><div class="frame" style="--h:44mm"><img src="https://docs.keyestudio.com/projects/KS0559/en/latest/_images/A141.png" alt="Part 4 components"></div></figure></div>
+      <div class="figs"><figure><div class="frame" style="--h:44mm"><img src="assets/keyestudio/A141.png" alt="Part 4 components"></div></figure></div>
     </div></div>
     <div class="step"><div class="k">4.2</div><div class="body">
       <h3>Rotate the servo to 90°</h3>
       <p>The servo turns the ultrasonic sensor left and right. Setting it to its middle position (90°) first means the sensor will face straight ahead once it is mounted. Connect the servo to the board, plug the board into your computer, and upload the servo code.</p>
       <div class="figs" style="--cols:2">
-        <figure><div class="frame" style="--h:44mm"><img src="https://docs.keyestudio.com/projects/KS0559/en/latest/_images/A151.png" alt="Connecting the servo to the board"></div></figure>
-        <figure><div class="frame" style="--h:44mm"><img src="https://docs.keyestudio.com/projects/KS0559/en/latest/_images/A161.png" alt="Servo at 90 degrees"></div></figure>
+        <figure><div class="frame" style="--h:44mm"><img src="assets/keyestudio/A151.png" alt="Connecting the servo to the board"></div></figure>
+        <figure><div class="frame" style="--h:44mm"><img src="assets/keyestudio/A161.png" alt="Servo at 90 degrees"></div></figure>
       </div>
     </div></div>
   </div>
@@ -806,23 +806,23 @@ a:focus-visible { outline: 2px solid var(--pink); outline-offset: 2px; border-ra
   </div>
 
   <div class="figs" style="--cols:2">
-    <figure><div class="frame" style="--h:44mm"><img src="https://docs.keyestudio.com/projects/KS0559/en/latest/_images/A171.png" alt="Arduino servo code"></div><figcaption>Arduino servo code</figcaption></figure>
-    <figure><div class="frame" style="--h:44mm"><img src="https://docs.keyestudio.com/projects/KS0559/en/latest/_images/A181.png" alt="KidsBlock servo code"></div><figcaption>KidsBlock servo code</figcaption></figure>
+    <figure><div class="frame" style="--h:44mm"><img src="assets/keyestudio/A171.png" alt="Arduino servo code"></div><figcaption>Arduino servo code</figcaption></figure>
+    <figure><div class="frame" style="--h:44mm"><img src="assets/keyestudio/A181.png" alt="KidsBlock servo code"></div><figcaption>KidsBlock servo code</figcaption></figure>
   </div>
 
   <div class="step"><div class="k">4.3</div><div class="body">
     <h3>Installation diagram</h3>
     <div class="figs" style="--cols:2">
-      <figure><div class="frame" style="--h:43mm"><img src="https://docs.keyestudio.com/projects/KS0559/en/latest/_images/A191.png" alt="Part 4 installation, step A"></div><figcaption>Step A</figcaption></figure>
-      <figure><div class="frame" style="--h:43mm"><img src="https://docs.keyestudio.com/projects/KS0559/en/latest/_images/A201.png" alt="Part 4 installation, step B"></div><figcaption>Step B</figcaption></figure>
-      <figure><div class="frame" style="--h:43mm"><img src="https://docs.keyestudio.com/projects/KS0559/en/latest/_images/A211.png" alt="Part 4 installation, step C"></div><figcaption>Step C</figcaption></figure>
-      <figure><div class="frame" style="--h:43mm"><img src="https://docs.keyestudio.com/projects/KS0559/en/latest/_images/A221.png" alt="Part 4 installation, step D"></div><figcaption>Step D</figcaption></figure>
+      <figure><div class="frame" style="--h:43mm"><img src="assets/keyestudio/A191.png" alt="Part 4 installation, step A"></div><figcaption>Step A</figcaption></figure>
+      <figure><div class="frame" style="--h:43mm"><img src="assets/keyestudio/A201.png" alt="Part 4 installation, step B"></div><figcaption>Step B</figcaption></figure>
+      <figure><div class="frame" style="--h:43mm"><img src="assets/keyestudio/A211.png" alt="Part 4 installation, step C"></div><figcaption>Step C</figcaption></figure>
+      <figure><div class="frame" style="--h:43mm"><img src="assets/keyestudio/A221.png" alt="Part 4 installation, step D"></div><figcaption>Step D</figcaption></figure>
     </div>
   </div></div>
 
   <div class="step"><div class="k">4.4</div><div class="body">
     <h3>Check your prototype</h3>
-    <div class="figs"><figure><div class="frame" style="--h:32mm"><img src="https://docs.keyestudio.com/projects/KS0559/en/latest/_images/A231.png" alt="Part 4 finished prototype"></div></figure></div>
+    <div class="figs"><figure><div class="frame" style="--h:32mm"><img src="assets/keyestudio/A231.png" alt="Part 4 finished prototype"></div></figure></div>
   </div></div>
 
   <footer class="folio"><img src="assets/xplor-logomark.png" alt=""><span>Part 4 of 8</span><span class="spacer"></span><span class="num"></span></footer>
@@ -843,18 +843,18 @@ a:focus-visible { outline: 2px solid var(--pink); outline-offset: 2px; border-ra
   <div class="step-row">
     <div class="step"><div class="k">5.1</div><div class="body">
       <h3>Components needed</h3>
-      <div class="figs"><figure><div class="frame" style="--h:46mm"><img src="https://docs.keyestudio.com/projects/KS0559/en/latest/_images/A241.png" alt="Part 5 components"></div></figure></div>
+      <div class="figs"><figure><div class="frame" style="--h:46mm"><img src="assets/keyestudio/A241.png" alt="Part 5 components"></div></figure></div>
     </div></div>
     <div class="step"><div class="k">5.2</div><div class="body">
       <h3>Installation diagram</h3>
       <div class="figs" style="--cols:2">
-        <figure><div class="frame" style="--h:62mm"><img src="https://docs.keyestudio.com/projects/KS0559/en/latest/_images/A251.png" alt="Part 5 installation, step A"></div><figcaption>Step A</figcaption></figure>
-        <figure><div class="frame" style="--h:62mm"><img src="https://docs.keyestudio.com/projects/KS0559/en/latest/_images/A261.png" alt="Part 5 installation, step B"></div><figcaption>Step B</figcaption></figure>
+        <figure><div class="frame" style="--h:62mm"><img src="assets/keyestudio/A251.png" alt="Part 5 installation, step A"></div><figcaption>Step A</figcaption></figure>
+        <figure><div class="frame" style="--h:62mm"><img src="assets/keyestudio/A261.png" alt="Part 5 installation, step B"></div><figcaption>Step B</figcaption></figure>
       </div>
     </div></div>
     <div class="step"><div class="k">5.3</div><div class="body">
       <h3>Check your prototype</h3>
-      <div class="figs"><figure><div class="frame" style="--h:52mm"><img src="https://docs.keyestudio.com/projects/KS0559/en/latest/_images/A271.png" alt="Part 5 finished prototype"></div></figure></div>
+      <div class="figs"><figure><div class="frame" style="--h:52mm"><img src="assets/keyestudio/A271.png" alt="Part 5 finished prototype"></div></figure></div>
     </div></div>
   </div>
 
@@ -877,20 +877,20 @@ a:focus-visible { outline: 2px solid var(--pink); outline-offset: 2px; border-ra
     <div class="step"><div class="k">6.1</div><div class="body">
       <h3>Components needed</h3>
       <div class="figs" style="--cols:2">
-        <figure><div class="frame" style="--h:42mm"><img src="https://docs.keyestudio.com/projects/KS0559/en/latest/_images/A281.png" alt="Part 6 components, set 1"></div></figure>
-        <figure><div class="frame" style="--h:42mm"><img src="https://docs.keyestudio.com/projects/KS0559/en/latest/_images/A291.png" alt="Part 6 components, set 2"></div></figure>
+        <figure><div class="frame" style="--h:42mm"><img src="assets/keyestudio/A281.png" alt="Part 6 components, set 1"></div></figure>
+        <figure><div class="frame" style="--h:42mm"><img src="assets/keyestudio/A291.png" alt="Part 6 components, set 2"></div></figure>
       </div>
     </div></div>
     <div class="step"><div class="k">6.2</div><div class="body">
       <h3>Installation diagram</h3>
       <div class="figs" style="--cols:2">
-        <figure><div class="frame" style="--h:62mm"><img src="https://docs.keyestudio.com/projects/KS0559/en/latest/_images/A301.png" alt="Part 6 installation, step A"></div><figcaption>Step A</figcaption></figure>
-        <figure><div class="frame" style="--h:62mm"><img src="https://docs.keyestudio.com/projects/KS0559/en/latest/_images/A311.png" alt="Part 6 installation, step B"></div><figcaption>Step B</figcaption></figure>
+        <figure><div class="frame" style="--h:62mm"><img src="assets/keyestudio/A301.png" alt="Part 6 installation, step A"></div><figcaption>Step A</figcaption></figure>
+        <figure><div class="frame" style="--h:62mm"><img src="assets/keyestudio/A311.png" alt="Part 6 installation, step B"></div><figcaption>Step B</figcaption></figure>
       </div>
     </div></div>
     <div class="step"><div class="k">6.3</div><div class="body">
       <h3>Check your prototype</h3>
-      <div class="figs"><figure><div class="frame" style="--h:52mm"><img src="https://docs.keyestudio.com/projects/KS0559/en/latest/_images/A321.png" alt="Part 6 finished prototype"></div></figure></div>
+      <div class="figs"><figure><div class="frame" style="--h:52mm"><img src="assets/keyestudio/A321.png" alt="Part 6 finished prototype"></div></figure></div>
     </div></div>
   </div>
 
@@ -912,18 +912,18 @@ a:focus-visible { outline: 2px solid var(--pink); outline-offset: 2px; border-ra
   <div class="step-row">
     <div class="step"><div class="k">7.1</div><div class="body">
       <h3>Components needed</h3>
-      <div class="figs"><figure><div class="frame" style="--h:46mm"><img src="https://docs.keyestudio.com/projects/KS0559/en/latest/_images/A331.png" alt="Part 7 components"></div></figure></div>
+      <div class="figs"><figure><div class="frame" style="--h:46mm"><img src="assets/keyestudio/A331.png" alt="Part 7 components"></div></figure></div>
     </div></div>
     <div class="step"><div class="k">7.2</div><div class="body">
       <h3>Installation diagram</h3>
       <div class="figs" style="--cols:2">
-        <figure><div class="frame" style="--h:62mm"><img src="https://docs.keyestudio.com/projects/KS0559/en/latest/_images/A341.png" alt="Part 7 installation, step A"></div><figcaption>Step A</figcaption></figure>
-        <figure><div class="frame" style="--h:62mm"><img src="https://docs.keyestudio.com/projects/KS0559/en/latest/_images/A351.png" alt="Part 7 installation, step B"></div><figcaption>Step B</figcaption></figure>
+        <figure><div class="frame" style="--h:62mm"><img src="assets/keyestudio/A341.png" alt="Part 7 installation, step A"></div><figcaption>Step A</figcaption></figure>
+        <figure><div class="frame" style="--h:62mm"><img src="assets/keyestudio/A351.png" alt="Part 7 installation, step B"></div><figcaption>Step B</figcaption></figure>
       </div>
     </div></div>
     <div class="step"><div class="k">7.3</div><div class="body">
       <h3>Check your prototype</h3>
-      <div class="figs"><figure><div class="frame" style="--h:52mm"><img src="https://docs.keyestudio.com/projects/KS0559/en/latest/_images/A361.png" alt="Part 7 finished prototype"></div></figure></div>
+      <div class="figs"><figure><div class="frame" style="--h:52mm"><img src="assets/keyestudio/A361.png" alt="Part 7 finished prototype"></div></figure></div>
     </div></div>
   </div>
 
@@ -944,7 +944,7 @@ a:focus-visible { outline: 2px solid var(--pink); outline-offset: 2px; border-ra
 
   <div class="step"><div class="k">8.1</div><div class="body">
     <h3>Wiring diagram</h3>
-    <div class="figs"><figure><div class="frame" style="--h:70mm"><img src="https://docs.keyestudio.com/projects/KS0559/en/latest/_images/A371.png" alt="Full wiring diagram"></div></figure></div>
+    <div class="figs"><figure><div class="frame" style="--h:70mm"><img src="assets/keyestudio/A371.png" alt="Full wiring diagram"></div></figure></div>
   </div></div>
 
   <div class="stack" style="gap:2mm">
@@ -960,8 +960,8 @@ a:focus-visible { outline: 2px solid var(--pink); outline-offset: 2px; border-ra
   <div class="step"><div class="k">8.2</div><div class="body">
     <h3>Connect the motors</h3>
     <div class="figs" style="--cols:2">
-      <figure><div class="frame" style="--h:52mm"><img src="https://docs.keyestudio.com/projects/KS0559/en/latest/_images/A381.png" alt="M2 to interface B, M3 to interface A"></div><figcaption>8.2 · M2 → B, M3 → A</figcaption></figure>
-      <figure><div class="frame" style="--h:52mm"><img src="https://docs.keyestudio.com/projects/KS0559/en/latest/_images/A391.png" alt="M1 to interface B1, M4 to interface A1"></div><figcaption>8.3 · M1 → B1, M4 → A1</figcaption></figure>
+      <figure><div class="frame" style="--h:52mm"><img src="assets/keyestudio/A381.png" alt="M2 to interface B, M3 to interface A"></div><figcaption>8.2 · M2 → B, M3 → A</figcaption></figure>
+      <figure><div class="frame" style="--h:52mm"><img src="assets/keyestudio/A391.png" alt="M1 to interface B1, M4 to interface A1"></div><figcaption>8.3 · M1 → B1, M4 → A1</figcaption></figure>
     </div>
   </div></div>
 
@@ -976,12 +976,12 @@ a:focus-visible { outline: 2px solid var(--pink); outline-offset: 2px; border-ra
   </div>
 
   <div class="figs" style="--cols:2">
-    <figure><div class="frame" style="--h:50mm"><img src="https://docs.keyestudio.com/projects/KS0559/en/latest/_images/A401.png" alt="Line-tracking sensor wiring"></div><figcaption>8.4 · 3-channel line-tracking sensor</figcaption></figure>
-    <figure><div class="frame" style="--h:50mm"><img src="https://docs.keyestudio.com/projects/KS0559/en/latest/_images/A41.png" alt="Battery power connected to BAT"></div><figcaption>8.5 · Power supply → BAT</figcaption></figure>
-    <figure><div class="frame" style="--h:50mm"><img src="https://docs.keyestudio.com/projects/KS0559/en/latest/_images/A42.png" alt="Ultrasonic sensor wiring, view 1"></div><figcaption>8.6 · Ultrasonic sensor</figcaption></figure>
-    <figure><div class="frame" style="--h:50mm"><img src="https://docs.keyestudio.com/projects/KS0559/en/latest/_images/A43.png" alt="Ultrasonic sensor wiring, view 2"></div><figcaption>8.6 · Ultrasonic sensor (continued)</figcaption></figure>
-    <figure><div class="frame" style="--h:50mm"><img src="https://docs.keyestudio.com/projects/KS0559/en/latest/_images/A441.png" alt="8x16 LED board wiring, view 1"></div><figcaption>8.7 · 8×16 LED board</figcaption></figure>
-    <figure><div class="frame" style="--h:50mm"><img src="https://docs.keyestudio.com/projects/KS0559/en/latest/_images/A45.png" alt="8x16 LED board wiring, view 2"></div><figcaption>8.7 · 8×16 LED board (continued)</figcaption></figure>
+    <figure><div class="frame" style="--h:50mm"><img src="assets/keyestudio/A401.png" alt="Line-tracking sensor wiring"></div><figcaption>8.4 · 3-channel line-tracking sensor</figcaption></figure>
+    <figure><div class="frame" style="--h:50mm"><img src="assets/keyestudio/A41.png" alt="Battery power connected to BAT"></div><figcaption>8.5 · Power supply → BAT</figcaption></figure>
+    <figure><div class="frame" style="--h:50mm"><img src="assets/keyestudio/A42.png" alt="Ultrasonic sensor wiring, view 1"></div><figcaption>8.6 · Ultrasonic sensor</figcaption></figure>
+    <figure><div class="frame" style="--h:50mm"><img src="assets/keyestudio/A43.png" alt="Ultrasonic sensor wiring, view 2"></div><figcaption>8.6 · Ultrasonic sensor (continued)</figcaption></figure>
+    <figure><div class="frame" style="--h:50mm"><img src="assets/keyestudio/A441.png" alt="8x16 LED board wiring, view 1"></div><figcaption>8.7 · 8×16 LED board</figcaption></figure>
+    <figure><div class="frame" style="--h:50mm"><img src="assets/keyestudio/A45.png" alt="8x16 LED board wiring, view 2"></div><figcaption>8.7 · 8×16 LED board (continued)</figcaption></figure>
   </div>
 
   <footer class="folio"><img src="assets/xplor-logomark.png" alt=""><span>Part 8 of 8</span><span class="spacer"></span><span class="num"></span></footer>
@@ -995,15 +995,15 @@ a:focus-visible { outline: 2px solid var(--pink); outline-offset: 2px; border-ra
   </div>
 
   <div class="figs" style="--cols:2">
-    <figure><div class="frame" style="--h:50mm"><img src="https://docs.keyestudio.com/projects/KS0559/en/latest/_images/A46.png" alt="Servo wiring, view 1"></div><figcaption>8.8 · Servo</figcaption></figure>
-    <figure><div class="frame" style="--h:50mm"><img src="https://docs.keyestudio.com/projects/KS0559/en/latest/_images/A47.png" alt="Servo wiring, view 2"></div><figcaption>8.8 · Servo (continued)</figcaption></figure>
+    <figure><div class="frame" style="--h:50mm"><img src="assets/keyestudio/A46.png" alt="Servo wiring, view 1"></div><figcaption>8.8 · Servo</figcaption></figure>
+    <figure><div class="frame" style="--h:50mm"><img src="assets/keyestudio/A47.png" alt="Servo wiring, view 2"></div><figcaption>8.8 · Servo (continued)</figcaption></figure>
   </div>
 
-  <div class="figs"><figure><div class="frame" style="--h:50mm"><img src="https://docs.keyestudio.com/projects/KS0559/en/latest/_images/A48.png" alt="Bluetooth module and jumper caps plugged in"></div><figcaption>8.9 · Plug in the Bluetooth module and jumper caps</figcaption></figure></div>
+  <div class="figs"><figure><div class="frame" style="--h:50mm"><img src="assets/keyestudio/A48.png" alt="Bluetooth module and jumper caps plugged in"></div><figcaption>8.9 · Plug in the Bluetooth module and jumper caps</figcaption></figure></div>
 
   <div class="tip warn"><span class="capsule pink">Important</span><p><strong>Remove the Bluetooth module before you upload any code</strong>, or the upload will fail. Plug it back in once the upload has finished.</p></div>
 
-  <div class="figs"><figure><div class="frame" style="--h:62mm"><img src="https://docs.keyestudio.com/projects/KS0559/en/latest/_images/A49.png" alt="The complete robot"></div><figcaption>8.10 · Complete prototype</figcaption></figure></div>
+  <div class="figs"><figure><div class="frame" style="--h:62mm"><img src="assets/keyestudio/A49.png" alt="The complete robot"></div><figcaption>8.10 · Complete prototype</figcaption></figure></div>
 
   <footer class="folio"><img src="assets/xplor-logomark.png" alt=""><span>Part 8 of 8</span><span class="spacer"></span><span class="num"></span></footer>
 </section>
