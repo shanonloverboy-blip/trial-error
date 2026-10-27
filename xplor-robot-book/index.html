@@ -1,0 +1,1145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Build Your 4WD Robot</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;700&family=Nunito:wght@500;800&display=swap">
+<style>
+/* Layout: an A4 build book. Each .page is one printed sheet; on screen the sheets stack like a flip-through proof.
+   Brand tokens follow the Xplor Academy Brand Guide 2026 (colors, Nunito/Figtree, brackets, capsules, dot matrix). */
+:root {
+  /* Primary */
+  --pink: #DA2585;
+  --blue: #2AA4FF;
+  --yellow: #F4B604;
+  --navy: #150E3D;
+  --lavender: #DFDFEF;
+  --white: #FFFFFF;
+  /* Supporting (deeper tints, used for text on light grounds) */
+  --pink-deep: #AB1E70;
+  --blue-deep: #007DC9;
+  --yellow-deep: #DE8B00;
+  /* Neutrals derived from navy */
+  --ink: #150E3D;
+  --ink-soft: #4A4566;
+  --panel: #F3F3FA;
+  --rule: #D3D3E6;
+  --desk: #E9E9F3;
+
+  --font-head: "Nunito", "Trebuchet MS", system-ui, sans-serif;
+  --font-body: "Figtree", "Segoe UI", system-ui, sans-serif;
+
+  --page-w: 210mm;
+  --page-h: 297mm;
+  color-scheme: light;
+}
+
+* { box-sizing: border-box; }
+html { background: var(--desk); }
+body {
+  margin: 0;
+  background: var(--desk);
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-size: 10.5pt;
+  line-height: 1.5;
+  -webkit-print-color-adjust: exact;
+  print-color-adjust: exact;
+  padding: 24px max(16px, env(safe-area-inset-right, 0px)) 48px max(16px, env(safe-area-inset-left, 0px));
+  counter-reset: page;
+}
+img { max-width: 100%; }
+
+/* ---------- Page frame ---------- */
+.page {
+  counter-increment: page;
+  position: relative;
+  width: 100%;
+  max-width: var(--page-w);
+  min-height: var(--page-h);
+  margin: 0 auto 24px;
+  background: var(--white);
+  padding: 16mm 16mm 22mm;
+  overflow: hidden;
+  box-shadow: 0 1px 2px rgba(21,14,61,.08), 0 8px 24px rgba(21,14,61,.10);
+  display: flex;
+  flex-direction: column;
+  gap: 6mm;
+}
+.page > * { min-width: 0; }
+
+.folio {
+  position: absolute;
+  left: 16mm; right: 16mm; bottom: 9mm;
+  display: flex; align-items: center; gap: 10px;
+  font-family: var(--font-head);
+  font-weight: 800;
+  font-size: 7.5pt;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+}
+.folio img { width: 16px; height: auto; }
+.folio .spacer { flex: 1; height: 1px; background: var(--rule); }
+.folio .num::before { content: counter(page, decimal-leading-zero); }
+
+/* ---------- Type ---------- */
+h1, h2, h3 {
+  font-family: var(--font-head);
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: .02em;
+  line-height: 1.05;
+  margin: 0;
+  text-wrap: balance;
+}
+h1 { font-size: 40pt; }
+h2 { font-size: 24pt; }
+h3 { font-size: 12pt; letter-spacing: .06em; }
+.sub {
+  font-family: var(--font-head);
+  font-weight: 500;
+  font-size: 13pt;
+  line-height: 1.35;
+  color: var(--ink-soft);
+  margin: 0;
+}
+p { margin: 0; max-width: 68ch; }
+strong, .hl { font-weight: 700; }
+.stack { display: flex; flex-direction: column; gap: 3mm; }
+
+.eyebrow {
+  font-family: var(--font-head);
+  font-weight: 800;
+  font-size: 8pt;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  color: var(--pink-deep);
+}
+
+/* Angled bracket motif from the guide: a chevron before headings */
+.bracket { display: inline-flex; align-items: center; gap: .35em; }
+.bracket::before {
+  content: "";
+  width: .5em; height: .5em;
+  border-left: .16em solid var(--blue);
+  border-bottom: .16em solid var(--blue);
+  transform: rotate(45deg);
+  flex: none;
+  margin-right: .1em;
+}
+
+/* Rounded capsules */
+.capsule {
+  display: inline-flex; align-items: center;
+  padding: .3em 1em;
+  border-radius: 999px;
+  font-family: var(--font-head);
+  font-weight: 800;
+  font-size: 8pt;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+.capsule.pink { background: var(--pink); color: var(--white); }
+.capsule.blue { background: var(--blue); color: var(--navy); }
+.capsule.yellow { background: var(--yellow); color: var(--navy); }
+.capsule.ghost { border: 1.5px solid currentColor; }
+
+/* Dot matrix texture */
+.dots {
+  background-image: radial-gradient(currentColor 1.2px, transparent 1.4px);
+  background-size: 9px 9px;
+}
+
+/* ---------- Cover ---------- */
+.cover {
+  background: var(--navy);
+  color: var(--white);
+  padding: 18mm 16mm;
+  justify-content: space-between;
+}
+.cover .logo { width: 62mm; }
+.cover h1 { font-size: 46pt; color: var(--white); }
+.cover h1 .accent { color: var(--yellow); }
+.cover .sub { color: var(--lavender); max-width: 34ch; }
+.cover .hero {
+  position: relative;
+  border-radius: 28px;
+  background: var(--white);
+  padding: 8mm;
+  display: grid; place-items: center;
+  height: 105mm;
+}
+.cover .hero img { max-height: 100%; object-fit: contain; }
+.cover .tags { display: flex; flex-wrap: wrap; gap: 8px; }
+.cover .deco-dots {
+  position: absolute; right: -10mm; top: 40mm;
+  width: 70mm; height: 50mm;
+  color: rgba(42,164,255,.35);
+}
+.cover .deco-bar {
+  position: absolute; left: -20mm; bottom: 60mm;
+  width: 90mm; height: 14mm; border-radius: 999px;
+  background: var(--pink);
+  transform: rotate(-35deg);
+  opacity: .9;
+}
+.cover > * { position: relative; }
+.cover .deco-dots, .cover .deco-bar { position: absolute; }
+.cover .meta {
+  display: flex; justify-content: space-between; align-items: end; gap: 12px; flex-wrap: wrap;
+  font-size: 8.5pt; color: var(--lavender);
+}
+
+/* ---------- Generic blocks ---------- */
+.lead { font-size: 12pt; line-height: 1.55; }
+.grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 6mm; }
+.grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 5mm; }
+
+.card {
+  background: var(--panel);
+  border-radius: 18px;
+  padding: 6mm;
+  display: flex; flex-direction: column; gap: 2.5mm;
+}
+.card.navy { background: var(--navy); color: var(--white); }
+.card.navy .sub { color: var(--lavender); }
+.card h3 { color: inherit; }
+.card .icon {
+  width: 10mm; height: 10mm; border-radius: 50%;
+  display: grid; place-items: center;
+  font-family: var(--font-head); font-weight: 800; font-size: 11pt;
+}
+
+ul.ticks { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 2mm; }
+ul.ticks li { position: relative; padding-left: 6mm; }
+ul.ticks li::before {
+  content: ""; position: absolute; left: 0; top: .55em;
+  width: 2.6mm; height: 2.6mm; border-radius: 50%;
+  background: var(--blue);
+}
+ul.ticks.pink li::before { background: var(--pink); }
+ul.ticks.yellow li::before { background: var(--yellow); }
+
+/* Contents */
+.toc { display: flex; flex-direction: column; }
+.toc a {
+  display: grid; grid-template-columns: 14mm 1fr auto; align-items: baseline; gap: 4mm;
+  padding: 2.6mm 0; border-bottom: 1px solid var(--rule);
+  color: inherit; text-decoration: none;
+}
+.toc .n { font-family: var(--font-head); font-weight: 800; color: var(--pink); font-variant-numeric: tabular-nums; }
+.toc .t { font-family: var(--font-head); font-weight: 800; text-transform: uppercase; letter-spacing: .04em; font-size: 10pt; }
+.toc .d { color: var(--ink-soft); font-size: 9pt; }
+
+/* Spec table */
+table { border-collapse: collapse; width: 100%; font-size: 9.5pt; }
+th, td { text-align: left; padding: 2mm 3mm; border-bottom: 1px solid var(--rule); vertical-align: middle; }
+th { font-family: var(--font-head); font-weight: 800; text-transform: uppercase; letter-spacing: .08em; font-size: 7.5pt; color: var(--ink-soft); }
+td.num { font-variant-numeric: tabular-nums; font-weight: 700; color: var(--pink-deep); width: 8mm; }
+td.qty { font-variant-numeric: tabular-nums; text-align: right; font-weight: 700; width: 12mm; }
+td.pic { width: 14mm; padding-top: 1mm; padding-bottom: 1mm; }
+td.pic img { width: 12mm; height: 9mm; object-fit: contain; display: block; }
+.table-wrap { overflow-x: auto; }
+.kit { display: grid; grid-template-columns: 1fr 1fr; gap: 6mm; }
+.kit table { font-size: 8.5pt; }
+.kit td { padding: 1.1mm 1.5mm; }
+
+dl.specs { display: grid; grid-template-columns: auto 1fr; gap: 1.8mm 6mm; margin: 0; }
+dl.specs dt { font-family: var(--font-head); font-weight: 800; font-size: 8pt; letter-spacing: .1em; text-transform: uppercase; color: var(--ink-soft); padding-top: .2em; }
+dl.specs dd { margin: 0; font-variant-numeric: tabular-nums; }
+
+/* ---------- Build parts ---------- */
+.part-head {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 6mm;
+  align-items: center;
+}
+.part-badge {
+  width: 26mm; height: 26mm;
+  border-radius: 22px;
+  display: grid; place-items: center;
+  font-family: var(--font-head); font-weight: 800;
+  color: var(--white);
+  line-height: 1;
+  text-align: center;
+}
+.part-badge small { display: block; font-size: 7pt; letter-spacing: .2em; margin-bottom: 1mm; }
+.part-badge span { font-size: 30pt; }
+.c-pink .part-badge { background: var(--pink); }
+.c-blue .part-badge { background: var(--blue); color: var(--navy); }
+.c-yellow .part-badge { background: var(--yellow); color: var(--navy); }
+
+/* Progress rail: 8 capsules, filled up to the current part */
+.progress { display: flex; gap: 4px; margin-top: 2mm; }
+.progress i { flex: 1; height: 6px; border-radius: 999px; background: var(--lavender); }
+.progress i.done { background: var(--navy); }
+.progress i.now { background: var(--pink); }
+
+.step-row { display: grid; grid-template-columns: 1fr; gap: 4mm; }
+.step {
+  display: grid;
+  grid-template-columns: 9mm 1fr;
+  gap: 4mm;
+  align-items: start;
+}
+.step .k {
+  width: 9mm; height: 9mm; border-radius: 50%;
+  background: var(--navy); color: var(--white);
+  display: grid; place-items: center;
+  font-family: var(--font-head); font-weight: 800; font-size: 9pt;
+  font-variant-numeric: tabular-nums;
+}
+.step .body { display: flex; flex-direction: column; gap: 2.5mm; min-width: 0; }
+.step h3 { padding-top: 1.6mm; }
+
+.figs { display: grid; gap: 3mm; grid-template-columns: repeat(var(--cols, 1), 1fr); }
+figure {
+  margin: 0;
+  background: var(--panel);
+  border-radius: 14px;
+  padding: 3mm;
+  display: flex; flex-direction: column; gap: 2mm;
+  min-width: 0;
+}
+figure .frame {
+  height: var(--h, 55mm);
+  display: grid; place-items: center;
+  overflow: hidden;
+}
+figure .frame img { max-height: 100%; max-width: 100%; object-fit: contain; }
+figcaption { font-size: 8pt; color: var(--ink-soft); }
+figure.missing .frame {
+  border: 1.5px dashed var(--rule);
+  border-radius: 10px;
+  color: var(--ink-soft);
+  font-size: 8.5pt;
+  text-align: center;
+  padding: 4mm;
+}
+
+.tip {
+  border-radius: 16px;
+  padding: 4mm 5mm;
+  display: grid; grid-template-columns: auto 1fr; gap: 4mm; align-items: start;
+  background: #FFF6DA;
+}
+.tip .capsule { margin-top: .1em; }
+.tip.warn { background: #FCE6F2; }
+.tip.info { background: #E3F2FF; }
+
+/* Wiring table on part 8 */
+.wire { display: grid; grid-template-columns: repeat(2, 1fr); gap: 3mm; }
+.wire div {
+  border-radius: 12px; padding: 3mm 4mm;
+  background: var(--panel);
+  display: flex; justify-content: space-between; gap: 3mm; align-items: center;
+}
+.wire b { font-family: var(--font-head); font-weight: 800; letter-spacing: .04em; }
+.wire .to { font-family: var(--font-head); font-weight: 800; color: var(--blue-deep); }
+
+/* Checklist */
+.checklist { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 2.5mm; }
+.checklist li { display: grid; grid-template-columns: 6mm 1fr; gap: 3mm; align-items: start; }
+.checklist li::before {
+  content: ""; width: 4.5mm; height: 4.5mm; margin-top: .2em;
+  border: 2px solid var(--navy); border-radius: 5px;
+}
+
+/* Projects list */
+.projects { columns: 2; column-gap: 8mm; margin: 0; padding: 0; list-style: none; }
+.projects li { break-inside: avoid; display: grid; grid-template-columns: 9mm 1fr; padding: 1.6mm 0; border-bottom: 1px solid var(--rule); }
+.projects .n { font-family: var(--font-head); font-weight: 800; color: var(--blue-deep); font-variant-numeric: tabular-nums; }
+
+/* Back cover */
+.back {
+  background: var(--navy); color: var(--white);
+  justify-content: center; align-items: center; text-align: center;
+  gap: 10mm;
+}
+.back .logo { width: 80mm; }
+.back .sub { color: var(--lavender); max-width: 40ch; }
+.back .deco-dots { position: absolute; inset: auto 0 0 0; height: 40mm; color: rgba(223,223,239,.18); }
+
+a { color: var(--blue-deep); }
+a:focus-visible { outline: 2px solid var(--pink); outline-offset: 2px; border-radius: 4px; }
+
+/* ---------- Small screens ---------- */
+@media (max-width: 640px) {
+  body { padding-top: 12px; }
+  .page { padding: 20px 18px 56px; min-height: 0; gap: 18px; }
+  .cover { padding: 24px 18px; min-height: 0; gap: 22px; }
+  .folio { left: 18px; right: 18px; bottom: 18px; }
+  h1, .cover h1 { font-size: 30pt; }
+  h2 { font-size: 19pt; }
+  .grid-2, .grid-3, .kit, .wire { grid-template-columns: 1fr; }
+  .projects { columns: 1; }
+  .figs { grid-template-columns: 1fr; }
+  figure .frame { height: auto; min-height: 30mm; }
+  .cover .hero { height: auto; }
+  .part-badge { width: 20mm; height: 20mm; }
+  .part-badge span { font-size: 22pt; }
+}
+
+/* ---------- Print ---------- */
+@page { size: A4; margin: 0; }
+@media print {
+  html, body { background: var(--white); }
+  body { padding: 0; }
+  .page {
+    margin: 0; box-shadow: none;
+    width: var(--page-w); height: var(--page-h); min-height: var(--page-h);
+    break-after: page;
+  }
+  .page:last-child { break-after: auto; }
+  a { color: inherit; text-decoration: none; }
+}
+@media (prefers-reduced-motion: reduce) { * { scroll-behavior: auto !important; } }
+</style>
+</head>
+<body>
+
+<!-- ===================== COVER ===================== -->
+<section class="page cover" id="cover">
+  <div class="deco-dots dots" aria-hidden="true"></div>
+  <div class="deco-bar" aria-hidden="true"></div>
+
+  <img class="logo" src="assets/xplor-logo-light.png" alt="Xplor Academy">
+
+  <div class="stack" style="gap:5mm">
+    <span class="eyebrow" style="color:var(--blue)">Robotics build book</span>
+    <h1>Build your <span class="accent">4WD robot</span></h1>
+    <p class="sub">A step-by-step guide to assembling the Keyestudio 4WD Bluetooth Multi-purpose Car V2.0, from the first screw to the first drive.</p>
+  </div>
+
+  <div class="hero">
+    <img src="https://docs.keyestudio.com/projects/KS0559/en/latest/_images/A1.png" alt="The finished Keyestudio 4WD robot car">
+  </div>
+
+  <div class="meta">
+    <div class="tags">
+      <span class="capsule pink">Robotics</span>
+      <span class="capsule blue">Arduino</span>
+      <span class="capsule yellow">Hands-on</span>
+    </div>
+    <span>Kit KS0559 · 8 build parts</span>
+  </div>
+</section>
+
+<!-- ===================== WELCOME + CONTENTS ===================== -->
+<section class="page" id="welcome">
+  <div class="stack">
+    <span class="eyebrow">Welcome, explorer</span>
+    <h2 class="bracket">Let's build a robot</h2>
+    <p class="sub">Every great creator starts by putting the pieces together.</p>
+  </div>
+
+  <p class="lead">In this book you will assemble a four-wheel-drive robot car that can follow lines, avoid obstacles, show facial expressions on an LED panel, and take commands from an infrared remote or a phone over Bluetooth. No soldering is needed. Every part fits together with screws, nuts and copper pillars.</p>
+
+  <div class="grid-3">
+    <div class="card">
+      <div class="icon" style="background:var(--pink);color:var(--white)">1</div>
+      <h3>Look</h3>
+      <p>Each part starts with the components you need. Find them and lay them out before you begin.</p>
+    </div>
+    <div class="card">
+      <div class="icon" style="background:var(--blue);color:var(--navy)">2</div>
+      <h3>Build</h3>
+      <p>Follow the installation diagrams in order. Match each screw to the size shown.</p>
+    </div>
+    <div class="card">
+      <div class="icon" style="background:var(--yellow);color:var(--navy)">3</div>
+      <h3>Check</h3>
+      <p>Compare your build with the finished picture before you move on to the next part.</p>
+    </div>
+  </div>
+
+  <div class="stack" style="gap:2mm">
+    <h3 class="bracket">Contents</h3>
+    <nav class="toc" aria-label="Contents">
+      <a href="#meet"><span class="n">01</span><span class="t">Meet your robot</span><span class="d">Features and specifications</span></a>
+      <a href="#kit"><span class="n">02</span><span class="t">What's in the kit</span><span class="d">All 38 items</span></a>
+      <a href="#prep"><span class="n">03</span><span class="t">Before you start</span><span class="d">Workspace, tools and safety</span></a>
+      <a href="#part-1"><span class="n">04</span><span class="t">The build, parts 1–8</span><span class="d">Step-by-step assembly</span></a>
+      <a href="#wiring"><span class="n">05</span><span class="t">Wiring it up</span><span class="d">Part 8: motors, sensors, power</span></a>
+      <a href="#check"><span class="n">06</span><span class="t">Final check</span><span class="d">Before the first power-on</span></a>
+      <a href="#next"><span class="n">07</span><span class="t">What's next</span><span class="d">17 projects to code</span></a>
+    </nav>
+  </div>
+
+  <footer class="folio"><img src="assets/xplor-logomark.png" alt=""><span>Build your 4WD robot</span><span class="spacer"></span><span class="num"></span></footer>
+</section>
+
+<!-- ===================== MEET YOUR ROBOT ===================== -->
+<section class="page" id="meet">
+  <div class="stack">
+    <span class="eyebrow">01 · Meet your robot</span>
+    <h2 class="bracket">One car, many missions</h2>
+    <p class="sub">A sturdy 4WD chassis with a brain, eyes and a face.</p>
+  </div>
+
+  <p>The robot is controlled by the <strong>Keyestudio V4.0 board</strong>, an Arduino Uno-compatible board built on the ATmega328P microcontroller. On top of it sits a <strong>motor driver expansion board</strong> using the DRV8833 chip, which powers the four motors and gives every sensor a plug-in port. The kit comes with 17 learning projects that grow from simple to advanced.</p>
+
+  <div class="grid-2">
+    <div class="card">
+      <h3>What it can do</h3>
+      <ul class="ticks">
+        <li>Follow a black line with the 3-channel line-tracking sensor</li>
+        <li>Measure distance and avoid obstacles with the ultrasonic sensor</li>
+        <li>Follow your hand as you move it in front of the car</li>
+        <li>Stay inside a boundary drawn on the floor</li>
+        <li>Show faces and icons on the 8×16 LED board</li>
+        <li>Drive by IR remote or by phone app (iOS and Android)</li>
+      </ul>
+    </div>
+    <div class="card navy">
+      <h3>Specifications</h3>
+      <dl class="specs">
+        <dt>Working voltage</dt><dd>5 V</dd>
+        <dt>Input voltage</dt><dd>6–9 V</dd>
+        <dt>Max output current</dt><dd>2 A</dd>
+        <dt>Motor speed</dt><dd>200 rpm at 5 V</dd>
+        <dt>Motor driver</dt><dd>DRV8833</dd>
+        <dt>Ultrasonic range</dt><dd>2–400 cm, &lt;15° angle</dd>
+        <dt>IR remote range</dt><dd>10 m (measured)</dd>
+        <dt>Bluetooth range</dt><dd>50 m (measured)</dd>
+      </dl>
+    </div>
+  </div>
+
+  <div class="grid-2">
+    <figure>
+      <div class="frame" style="--h:48mm"><img src="https://docs.keyestudio.com/projects/KS0559/en/latest/_images/A40.png" alt="Keyestudio V4.0 development board"></div>
+      <figcaption><strong>The brain.</strong> 14 digital pins (6 with PWM), 6 analog inputs, 16 MHz clock, USB port and reset button.</figcaption>
+    </figure>
+    <figure>
+      <div class="frame" style="--h:48mm"><img src="https://docs.keyestudio.com/projects/KS0559/en/latest/_images/A43.gif" alt="Motor driver expansion board with its ports labelled"></div>
+      <figcaption><strong>The muscles.</strong> Two H-bridge channels up to 1.5 A each, a built-in IR receiver, and PH2.0 ports for every sensor.</figcaption>
+    </figure>
+  </div>
+
+  <footer class="folio"><img src="assets/xplor-logomark.png" alt=""><span>Build your 4WD robot</span><span class="spacer"></span><span class="num"></span></footer>
+</section>
+
+<!-- ===================== KIT LIST ===================== -->
+<section class="page" id="kit">
+  <div class="stack">
+    <span class="eyebrow">02 · What's in the kit</span>
+    <h2 class="bracket">Check your parts</h2>
+    <p class="sub">Tick off every item before you start. Small screws are easy to lose.</p>
+  </div>
+
+  <div class="kit">
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>#</th><th></th><th>Item</th><th style="text-align:right">Qty</th></tr></thead>
+        <tbody>
+          <tr><td class="num">1</td><td class="pic"><img src="https://docs.keyestudio.com/projects/KS0559/en/latest/_images/A2.png" alt=""></td><td>Keyestudio V4.0 board (UNO compatible)</td><td class="qty">1</td></tr>
+          <tr><td class="num">2</td><td class="pic"><img src="https://docs.keyestudio.com/projects/KS0559/en/latest/_images/A3.png" alt=""></td><td>Motor driver expansion board</td><td class="qty">1</td></tr>
+          <tr><td class="num">3</td><td class="pic"><img src="https://docs.keyestudio.com/projects/KS0559/en/latest/_images/A4.jpeg" alt=""></td><td>Bluetooth module</td><td class="qty">1</td></tr>
+          <tr><td class="num">4</td><td class="pic"><img src="https://docs.keyestudio.com/projects/KS0559/en/latest/_images/A5.png" alt=""></td><td>Red LED module</td><td class="qty">1</td></tr>
+          <tr><td class="num">5</td><td class="pic"><img src="https://docs.keyestudio.com/projects/KS0559/en/latest/_images/A6.png" alt=""></td><td>Ultrasonic sensor</td><td class="qty">1</td></tr>
+          <tr><td class="num">6</td><td class="pic"><img src="https://docs.keyestudio.com/projects/KS0559/en/latest/_images/A7.png" alt=""></td><td>Line-tracking sensor</td><td class="qty">1</td></tr>
+          <tr><td class="num">7</td><td class="pic"><img src="https://docs.keyestudio.com/projects/KS0559/en/latest/_images/A8.jpeg" alt=""></td><td>8×16 LED board (with 4-pin wire)</td><td class="qty">1</td></tr>
+          <tr><td class="num">8</td><td class="pic"><img src="https://docs.keyestudio.com/projects/KS0559/en/latest/_images/A9.jpeg" alt=""></td><td>Servo</td><td class="qty">1</td></tr>
+          <tr><td class="num">9</td><td class="pic"><img src="https://docs.keyestudio.com/projects/KS0559/en/latest/_images/A10.png" alt=""></td><td>IR remote control</td><td class="qty">1</td></tr>
+          <tr><td class="num">10</td><td class="pic"><img src="https://docs.keyestudio.com/projects/KS0559/en/latest/_images/A11.png" alt=""></td><td>USB cable</td><td class="qty">1</td></tr>
+          <tr><td class="num">11</td><td class="pic"><img src="https://docs.keyestudio.com/projects/KS0559/en/latest/_images/A12.png" alt=""></td><td>18650 battery holder</td><td class="qty">1</td></tr>
+          <tr><td class="num">12</td><td class="pic"><img src="https://docs.keyestudio.com/projects/KS0559/en/latest/_images/A13.png" alt=""></td><td>6× AA battery holder</td><td class="qty">1</td></tr>
+          <tr><td class="num">13</td><td class="pic"><img src="https://docs.keyestudio.com/projects/KS0559/en/latest/_images/A14.png" alt=""></td><td>Cradle head</td><td class="qty">1</td></tr>
+          <tr><td class="num">14</td><td class="pic"><img src="https://docs.keyestudio.com/projects/KS0559/en/latest/_images/A15.png" alt=""></td><td>150 mm JST-PH2.0 5-pin wire</td><td class="qty">1</td></tr>
+          <tr><td class="num">15</td><td class="pic"><img src="https://docs.keyestudio.com/projects/KS0559/en/latest/_images/A16.png" alt=""></td><td>150 mm PH2.0 4-pin to Dupont wire</td><td class="qty">1</td></tr>
+          <tr><td class="num">16</td><td class="pic"><img src="https://docs.keyestudio.com/projects/KS0559/en/latest/_images/A17.png" alt=""></td><td>Acrylic board</td><td class="qty">1</td></tr>
+          <tr><td class="num">17</td><td class="pic"><img src="https://docs.keyestudio.com/projects/KS0559/en/latest/_images/A18.png" alt=""></td><td>Top board</td><td class="qty">1</td></tr>
+          <tr><td class="num">18</td><td class="pic"><img src="https://docs.keyestudio.com/projects/KS0559/en/latest/_images/A19.png" alt=""></td><td>Base board</td><td class="qty">1</td></tr>
+          <tr><td class="num">19</td><td class="pic"><img src="https://docs.keyestudio.com/projects/KS0559/en/latest/_images/A20.png" alt=""></td><td>Fixed parts</td><td class="qty">4</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>#</th><th></th><th>Item</th><th style="text-align:right">Qty</th></tr></thead>
+        <tbody>
+          <tr><td class="num">20</td><td class="pic"><img src="https://docs.keyestudio.com/projects/KS0559/en/latest/_images/A21.png" alt=""></td><td>Wheels</td><td class="qty">4</td></tr>
+          <tr><td class="num">21</td><td class="pic"><img src="https://docs.keyestudio.com/projects/KS0559/en/latest/_images/A22.png" alt=""></td><td>M3×10 mm copper pillar</td><td class="qty">10</td></tr>
+          <tr><td class="num">22</td><td class="pic"><img src="https://docs.keyestudio.com/projects/KS0559/en/latest/_images/A23.png" alt=""></td><td>M3×40 mm copper pillar</td><td class="qty">4</td></tr>
+          <tr><td class="num">23</td><td class="pic"><img src="https://docs.keyestudio.com/projects/KS0559/en/latest/_images/A24.png" alt=""></td><td>M3×30 mm round-head screw</td><td class="qty">8</td></tr>
+          <tr><td class="num">24</td><td class="pic"><img src="https://docs.keyestudio.com/projects/KS0559/en/latest/_images/A25.png" alt=""></td><td>M3×6 mm round-head screw</td><td class="qty">40</td></tr>
+          <tr><td class="num">25</td><td class="pic"><img src="https://docs.keyestudio.com/projects/KS0559/en/latest/_images/A26.png" alt=""></td><td>M3 nickel-plated nut</td><td class="qty">16</td></tr>
+          <tr><td class="num">26</td><td class="pic"><img src="https://docs.keyestudio.com/projects/KS0559/en/latest/_images/A27.png" alt=""></td><td>M2×8 mm round-head screw</td><td class="qty">6</td></tr>
+          <tr><td class="num">27</td><td class="pic"><img src="https://docs.keyestudio.com/projects/KS0559/en/latest/_images/A28.png" alt=""></td><td>M3×8 mm round-head screw</td><td class="qty">4</td></tr>
+          <tr><td class="num">28</td><td class="pic"><img src="https://docs.keyestudio.com/projects/KS0559/en/latest/_images/A29.png" alt=""></td><td>M2 nickel-plated nut</td><td class="qty">6</td></tr>
+          <tr><td class="num">29</td><td class="pic"><img src="https://docs.keyestudio.com/projects/KS0559/en/latest/_images/A30.png" alt=""></td><td>M3×10 mm flat-head screw</td><td class="qty">3</td></tr>
+          <tr><td class="num">30</td><td class="pic"><img src="https://docs.keyestudio.com/projects/KS0559/en/latest/_images/A31.png" alt=""></td><td>Motor</td><td class="qty">4</td></tr>
+          <tr><td class="num">31</td><td class="pic"><img src="https://docs.keyestudio.com/projects/KS0559/en/latest/_images/A32.png" alt=""></td><td>Screwdriver</td><td class="qty">1</td></tr>
+          <tr><td class="num">32</td><td class="pic"><img src="https://docs.keyestudio.com/projects/KS0559/en/latest/_images/A33.png" alt=""></td><td>Black cable tie</td><td class="qty">6</td></tr>
+          <tr><td class="num">33</td><td class="pic"><img src="https://docs.keyestudio.com/projects/KS0559/en/latest/_images/A34.png" alt=""></td><td>Winding pipe</td><td class="qty">1</td></tr>
+          <tr><td class="num">34</td><td class="pic"><img src="https://docs.keyestudio.com/projects/KS0559/en/latest/_images/A35.png" alt=""></td><td>20 cm 3-pin F-F Dupont cable</td><td class="qty">1</td></tr>
+          <tr><td class="num">35</td><td class="pic"><img src="https://docs.keyestudio.com/projects/KS0559/en/latest/_images/A36.png" alt=""></td><td>Decorative card</td><td class="qty">1</td></tr>
+          <tr><td class="num">36</td><td class="pic"><img src="https://docs.keyestudio.com/projects/KS0559/en/latest/_images/A37.png" alt=""></td><td>Blue jumper cap</td><td class="qty">4</td></tr>
+          <tr><td class="num">37</td><td class="pic"><img src="https://docs.keyestudio.com/projects/KS0559/en/latest/_images/A38.png" alt=""></td><td>Red jumper cap</td><td class="qty">4</td></tr>
+          <tr><td class="num">38</td><td class="pic"><img src="https://docs.keyestudio.com/projects/KS0559/en/latest/_images/A39.png" alt=""></td><td>Tracking runway</td><td class="qty">1</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <footer class="folio"><img src="assets/xplor-logomark.png" alt=""><span>Build your 4WD robot</span><span class="spacer"></span><span class="num"></span></footer>
+</section>
+
+<!-- ===================== BEFORE YOU START ===================== -->
+<section class="page" id="prep">
+  <div class="stack">
+    <span class="eyebrow">03 · Before you start</span>
+    <h2 class="bracket">Set up for success</h2>
+    <p class="sub">Ten minutes of preparation saves an hour of searching for screws.</p>
+  </div>
+
+  <div class="grid-2">
+    <div class="card">
+      <h3>Your workspace</h3>
+      <ul class="ticks">
+        <li>A clear, flat table with good light</li>
+        <li>A small tray or bowl for each screw size</li>
+        <li>The screwdriver from the kit</li>
+        <li>About 60–90 minutes for the full build</li>
+        <li>A computer with a USB port, for Part 4</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3>Know your screws</h3>
+      <ul class="ticks pink">
+        <li><strong>M3 vs M2:</strong> M2 is the thinner screw. It is only used in a few places.</li>
+        <li><strong>The second number is the length.</strong> An M3×6 is short, an M3×30 is long.</li>
+        <li><strong>Pillars</strong> are the gold hex spacers that hold boards apart.</li>
+        <li>Lay one of each next to the kit list to compare.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="card navy">
+    <h3>How every part works</h3>
+    <div class="grid-3" style="gap:4mm">
+      <div class="stack" style="gap:1.5mm"><span class="capsule pink" style="align-self:start">Components</span><p>Collect exactly the pieces in the picture.</p></div>
+      <div class="stack" style="gap:1.5mm"><span class="capsule blue" style="align-self:start">Installation</span><p>Follow the diagram. Arrows show where each piece goes.</p></div>
+      <div class="stack" style="gap:1.5mm"><span class="capsule yellow" style="align-self:start">Prototype</span><p>Check that your build matches before moving on.</p></div>
+    </div>
+  </div>
+
+  <div class="stack" style="gap:3mm">
+    <div class="tip">
+      <span class="capsule yellow">Tip</span>
+      <p>Tighten screws until they are snug, then stop. Over-tightening can crack the acrylic board or strip the plastic.</p>
+    </div>
+    <div class="tip warn">
+      <span class="capsule pink">Safety</span>
+      <p>Keep batteries out of the holder until the build is finished. Check the + and − markings every time you insert them. Ask an adult to help with 18650 lithium batteries.</p>
+    </div>
+    <div class="tip info">
+      <span class="capsule blue">Teamwork</span>
+      <p>Building in pairs works well: one person reads the step and finds the parts, the other assembles. Swap roles after each part.</p>
+    </div>
+  </div>
+
+  <footer class="folio"><img src="assets/xplor-logomark.png" alt=""><span>Build your 4WD robot</span><span class="spacer"></span><span class="num"></span></footer>
+</section>
+
+<!-- ===================== PART 1 ===================== -->
+<section class="page c-pink" id="part-1">
+  <div class="part-head">
+    <div class="part-badge"><div><small>PART</small><span>1</span></div></div>
+    <div class="stack" style="gap:1.5mm">
+      <span class="eyebrow">The build</span>
+      <h2>Part 1</h2>
+      <p class="sub">The first pieces of your chassis.</p>
+      <div class="progress" aria-label="Part 1 of 8"><i class="now"></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+    </div>
+  </div>
+
+  <div class="step-row">
+    <div class="step"><div class="k">1.1</div><div class="body">
+      <h3>Components needed</h3>
+      <div class="figs"><figure><div class="frame" style="--h:42mm"><img src="https://docs.keyestudio.com/projects/KS0559/en/latest/_images/A110.png" alt="Part 1 components"></div></figure></div>
+    </div></div>
+    <div class="step"><div class="k">1.2</div><div class="body">
+      <h3>Installation diagram</h3>
+      <div class="figs"><figure><div class="frame" style="--h:62mm"><img src="https://docs.keyestudio.com/projects/KS0559/en/latest/_images/A210.png" alt="Part 1 installation diagram"></div></figure></div>
+    </div></div>
+    <div class="step"><div class="k">1.3</div><div class="body">
+      <h3>Check your prototype</h3>
+      <div class="figs"><figure><div class="frame" style="--h:42mm"><img src="https://docs.keyestudio.com/projects/KS0559/en/latest/_images/A310.png" alt="Part 1 finished prototype"></div></figure></div>
+    </div></div>
+  </div>
+
+  <div class="tip"><span class="capsule yellow">Tip</span><p>Count the screws in the components picture and set exactly that many aside. If you have some left over at the end of the step, look again at the diagram.</p></div>
+
+  <footer class="folio"><img src="assets/xplor-logomark.png" alt=""><span>Part 1 of 8</span><span class="spacer"></span><span class="num"></span></footer>
+</section>
+
+<!-- ===================== PART 2 ===================== -->
+<section class="page c-blue" id="part-2">
+  <div class="part-head">
+    <div class="part-badge"><div><small>PART</small><span>2</span></div></div>
+    <div class="stack" style="gap:1.5mm">
+      <span class="eyebrow">The build</span>
+      <h2>Part 2</h2>
+      <p class="sub">Building on the base.</p>
+      <div class="progress" aria-label="Part 2 of 8"><i class="done"></i><i class="now"></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+    </div>
+  </div>
+
+  <div class="step-row">
+    <div class="step"><div class="k">2.1</div><div class="body">
+      <h3>Components needed</h3>
+      <div class="figs"><figure><div class="frame" style="--h:38mm"><img src="https://docs.keyestudio.com/projects/KS0559/en/latest/_images/A4.png" alt="Part 2 components"></div></figure></div>
+    </div></div>
+    <div class="step"><div class="k">2.2</div><div class="body">
+      <h3>Installation diagram</h3>
+      <div class="figs" style="--cols:3">
+        <figure><div class="frame" style="--h:50mm"><img src="https://docs.keyestudio.com/projects/KS0559/en/latest/_images/A51.png" alt="Part 2 installation, step A"></div><figcaption>Step A</figcaption></figure>
+        <figure><div class="frame" style="--h:50mm"><img src="https://docs.keyestudio.com/projects/KS0559/en/latest/_images/A61.png" alt="Part 2 installation, step B"></div><figcaption>Step B</figcaption></figure>
+        <figure><div class="frame" style="--h:50mm"><img src="https://docs.keyestudio.com/projects/KS0559/en/latest/_images/A71.png" alt="Part 2 installation, step C"></div><figcaption>Step C</figcaption></figure>
+      </div>
+    </div></div>
+    <div class="step"><div class="k">2.3</div><div class="body">
+      <h3>Check your prototype</h3>
+      <div class="figs"><figure><div class="frame" style="--h:50mm"><img src="https://docs.keyestudio.com/projects/KS0559/en/latest/_images/A8.png" alt="Part 2 finished prototype"></div></figure></div>
+    </div></div>
+  </div>
+
+  <div class="tip info"><span class="capsule blue">Check</span><p>Turn the chassis over and look at it from every side. Each piece should sit flat with no gaps.</p></div>
+
+  <footer class="folio"><img src="assets/xplor-logomark.png" alt=""><span>Part 2 of 8</span><span class="spacer"></span><span class="num"></span></footer>
+</section>
+
+<!-- ===================== PART 3 ===================== -->
+<section class="page c-yellow" id="part-3">
+  <div class="part-head">
+    <div class="part-badge"><div><small>PART</small><span>3</span></div></div>
+    <div class="stack" style="gap:1.5mm">
+      <span class="eyebrow">The build</span>
+      <h2>Part 3</h2>
+      <p class="sub">Mounting and plugging in the first wire.</p>
+      <div class="progress" aria-label="Part 3 of 8"><i class="done"></i><i class="done"></i><i class="now"></i><i></i><i></i><i></i><i></i><i></i></div>
+    </div>
+  </div>
+
+  <div class="step-row">
+    <div class="step"><div class="k">3.1</div><div class="body">
+      <h3>Components needed</h3>
+      <div class="figs" style="--cols:2">
+        <figure><div class="frame" style="--h:40mm"><img src="https://docs.keyestudio.com/projects/KS0559/en/latest/_images/A9.png" alt="Part 3 components, set 1"></div></figure>
+        <figure><div class="frame" style="--h:40mm"><img src="https://docs.keyestudio.com/projects/KS0559/en/latest/_images/A101.png" alt="Part 3 components, set 2"></div></figure>
+      </div>
+    </div></div>
+    <div class="step"><div class="k">3.2</div><div class="body">
+      <h3>Installation diagram</h3>
+      <div class="figs"><figure><div class="frame" style="--h:52mm"><img src="https://docs.keyestudio.com/projects/KS0559/en/latest/_images/A111.png" alt="Part 3 installation diagram"></div></figure></div>
+    </div></div>
+    <div class="step"><div class="k">3.3</div><div class="body">
+      <h3>Plug in the wire</h3>
+      <div class="figs" style="--cols:2">
+        <figure><div class="frame" style="--h:46mm"><img src="https://docs.keyestudio.com/projects/KS0559/en/latest/_images/A121.png" alt="Part 3 plugging in the wire"></div><figcaption>Plug wire</figcaption></figure>
+        <figure><div class="frame" style="--h:46mm"><img src="https://docs.keyestudio.com/projects/KS0559/en/latest/_images/A131.png" alt="Part 3 finished prototype"></div><figcaption>3.4 · Check your prototype</figcaption></figure>
+      </div>
+    </div></div>
+  </div>
+
+  <div class="tip"><span class="capsule yellow">Tip</span><p>PH2.0 plugs only fit one way. If a plug won't go in, flip it over instead of pushing harder.</p></div>
+
+  <footer class="folio"><img src="assets/xplor-logomark.png" alt=""><span>Part 3 of 8</span><span class="spacer"></span><span class="num"></span></footer>
+</section>
+
+<!-- ===================== PART 4 (a) ===================== -->
+<section class="page c-pink" id="part-4">
+  <div class="part-head">
+    <div class="part-badge"><div><small>PART</small><span>4</span></div></div>
+    <div class="stack" style="gap:1.5mm">
+      <span class="eyebrow">The build</span>
+      <h2>Part 4 · Servo</h2>
+      <p class="sub">Set the servo to 90° before you fit it.</p>
+      <div class="progress" aria-label="Part 4 of 8"><i class="done"></i><i class="done"></i><i class="done"></i><i class="now"></i><i></i><i></i><i></i><i></i></div>
+    </div>
+  </div>
+
+  <div class="step-row">
+    <div class="step"><div class="k">4.1</div><div class="body">
+      <h3>Components needed</h3>
+      <div class="figs"><figure><div class="frame" style="--h:44mm"><img src="https://docs.keyestudio.com/projects/KS0559/en/latest/_images/A141.png" alt="Part 4 components"></div></figure></div>
+    </div></div>
+    <div class="step"><div class="k">4.2</div><div class="body">
+      <h3>Rotate the servo to 90°</h3>
+      <p>The servo turns the ultrasonic sensor left and right. Setting it to its middle position (90°) first means the sensor will face straight ahead once it is mounted. Connect the servo to the board, plug the board into your computer, and upload the servo code.</p>
+      <div class="figs" style="--cols:2">
+        <figure><div class="frame" style="--h:44mm"><img src="https://docs.keyestudio.com/projects/KS0559/en/latest/_images/A151.png" alt="Connecting the servo to the board"></div></figure>
+        <figure><div class="frame" style="--h:44mm"><img src="https://docs.keyestudio.com/projects/KS0559/en/latest/_images/A161.png" alt="Servo at 90 degrees"></div></figure>
+      </div>
+    </div></div>
+  </div>
+
+  <div class="grid-2">
+    <div class="card">
+      <span class="capsule blue" style="align-self:start">Option A · Arduino</span>
+      <p>Download the code: <a href="https://docs.keyestudio.com/projects/KS0559/en/latest/_downloads/82d081a55a141bd3d79f68ae64207cde/Arduino.7z">Arduino.7z</a>. Open the servo sketch in the Arduino IDE and upload it.</p>
+    </div>
+    <div class="card">
+      <span class="capsule yellow" style="align-self:start">Option B · KidsBlock</span>
+      <p>Download the code: <a href="https://docs.keyestudio.com/projects/KS0559/en/latest/_downloads/f0b87c01a08d8401aca42205de5abb88/Kidsblock.7z">Kidsblock.7z</a>. Open the servo project in KidsBlock and upload it.</p>
+    </div>
+  </div>
+
+  <div class="tip warn"><span class="capsule pink">Important</span><p>Choose one option and follow the matching course. If your computer doesn't recognise the board, install the USB driver first (Keyestudio guide, chapter 3).</p></div>
+
+  <footer class="folio"><img src="assets/xplor-logomark.png" alt=""><span>Part 4 of 8</span><span class="spacer"></span><span class="num"></span></footer>
+</section>
+
+<!-- ===================== PART 4 (b) ===================== -->
+<section class="page c-pink" id="part-4b">
+  <div class="stack" style="gap:1.5mm">
+    <span class="eyebrow">Part 4 · continued</span>
+    <h2 class="bracket">Fit the servo</h2>
+  </div>
+
+  <div class="figs" style="--cols:2">
+    <figure><div class="frame" style="--h:44mm"><img src="https://docs.keyestudio.com/projects/KS0559/en/latest/_images/A171.png" alt="Arduino servo code"></div><figcaption>Arduino servo code</figcaption></figure>
+    <figure><div class="frame" style="--h:44mm"><img src="https://docs.keyestudio.com/projects/KS0559/en/latest/_images/A181.png" alt="KidsBlock servo code"></div><figcaption>KidsBlock servo code</figcaption></figure>
+  </div>
+
+  <div class="step"><div class="k">4.3</div><div class="body">
+    <h3>Installation diagram</h3>
+    <div class="figs" style="--cols:2">
+      <figure><div class="frame" style="--h:43mm"><img src="https://docs.keyestudio.com/projects/KS0559/en/latest/_images/A191.png" alt="Part 4 installation, step A"></div><figcaption>Step A</figcaption></figure>
+      <figure><div class="frame" style="--h:43mm"><img src="https://docs.keyestudio.com/projects/KS0559/en/latest/_images/A201.png" alt="Part 4 installation, step B"></div><figcaption>Step B</figcaption></figure>
+      <figure><div class="frame" style="--h:43mm"><img src="https://docs.keyestudio.com/projects/KS0559/en/latest/_images/A211.png" alt="Part 4 installation, step C"></div><figcaption>Step C</figcaption></figure>
+      <figure><div class="frame" style="--h:43mm"><img src="https://docs.keyestudio.com/projects/KS0559/en/latest/_images/A221.png" alt="Part 4 installation, step D"></div><figcaption>Step D</figcaption></figure>
+    </div>
+  </div></div>
+
+  <div class="step"><div class="k">4.4</div><div class="body">
+    <h3>Check your prototype</h3>
+    <div class="figs"><figure><div class="frame" style="--h:32mm"><img src="https://docs.keyestudio.com/projects/KS0559/en/latest/_images/A231.png" alt="Part 4 finished prototype"></div></figure></div>
+  </div></div>
+
+  <footer class="folio"><img src="assets/xplor-logomark.png" alt=""><span>Part 4 of 8</span><span class="spacer"></span><span class="num"></span></footer>
+</section>
+
+<!-- ===================== PART 5 ===================== -->
+<section class="page c-blue" id="part-5">
+  <div class="part-head">
+    <div class="part-badge"><div><small>PART</small><span>5</span></div></div>
+    <div class="stack" style="gap:1.5mm">
+      <span class="eyebrow">The build</span>
+      <h2>Part 5</h2>
+      <p class="sub">Past halfway. Keep going.</p>
+      <div class="progress" aria-label="Part 5 of 8"><i class="done"></i><i class="done"></i><i class="done"></i><i class="done"></i><i class="now"></i><i></i><i></i><i></i></div>
+    </div>
+  </div>
+
+  <div class="step-row">
+    <div class="step"><div class="k">5.1</div><div class="body">
+      <h3>Components needed</h3>
+      <div class="figs"><figure><div class="frame" style="--h:46mm"><img src="https://docs.keyestudio.com/projects/KS0559/en/latest/_images/A241.png" alt="Part 5 components"></div></figure></div>
+    </div></div>
+    <div class="step"><div class="k">5.2</div><div class="body">
+      <h3>Installation diagram</h3>
+      <div class="figs" style="--cols:2">
+        <figure><div class="frame" style="--h:62mm"><img src="https://docs.keyestudio.com/projects/KS0559/en/latest/_images/A251.png" alt="Part 5 installation, step A"></div><figcaption>Step A</figcaption></figure>
+        <figure><div class="frame" style="--h:62mm"><img src="https://docs.keyestudio.com/projects/KS0559/en/latest/_images/A261.png" alt="Part 5 installation, step B"></div><figcaption>Step B</figcaption></figure>
+      </div>
+    </div></div>
+    <div class="step"><div class="k">5.3</div><div class="body">
+      <h3>Check your prototype</h3>
+      <div class="figs"><figure><div class="frame" style="--h:52mm"><img src="https://docs.keyestudio.com/projects/KS0559/en/latest/_images/A271.png" alt="Part 5 finished prototype"></div></figure></div>
+    </div></div>
+  </div>
+
+  <footer class="folio"><img src="assets/xplor-logomark.png" alt=""><span>Part 5 of 8</span><span class="spacer"></span><span class="num"></span></footer>
+</section>
+
+<!-- ===================== PART 6 ===================== -->
+<section class="page c-yellow" id="part-6">
+  <div class="part-head">
+    <div class="part-badge"><div><small>PART</small><span>6</span></div></div>
+    <div class="stack" style="gap:1.5mm">
+      <span class="eyebrow">The build</span>
+      <h2>Part 6</h2>
+      <p class="sub">Adding the next layer.</p>
+      <div class="progress" aria-label="Part 6 of 8"><i class="done"></i><i class="done"></i><i class="done"></i><i class="done"></i><i class="done"></i><i class="now"></i><i></i><i></i></div>
+    </div>
+  </div>
+
+  <div class="step-row">
+    <div class="step"><div class="k">6.1</div><div class="body">
+      <h3>Components needed</h3>
+      <div class="figs" style="--cols:2">
+        <figure><div class="frame" style="--h:42mm"><img src="https://docs.keyestudio.com/projects/KS0559/en/latest/_images/A281.png" alt="Part 6 components, set 1"></div></figure>
+        <figure><div class="frame" style="--h:42mm"><img src="https://docs.keyestudio.com/projects/KS0559/en/latest/_images/A291.png" alt="Part 6 components, set 2"></div></figure>
+      </div>
+    </div></div>
+    <div class="step"><div class="k">6.2</div><div class="body">
+      <h3>Installation diagram</h3>
+      <div class="figs" style="--cols:2">
+        <figure><div class="frame" style="--h:62mm"><img src="https://docs.keyestudio.com/projects/KS0559/en/latest/_images/A301.png" alt="Part 6 installation, step A"></div><figcaption>Step A</figcaption></figure>
+        <figure><div class="frame" style="--h:62mm"><img src="https://docs.keyestudio.com/projects/KS0559/en/latest/_images/A311.png" alt="Part 6 installation, step B"></div><figcaption>Step B</figcaption></figure>
+      </div>
+    </div></div>
+    <div class="step"><div class="k">6.3</div><div class="body">
+      <h3>Check your prototype</h3>
+      <div class="figs"><figure><div class="frame" style="--h:52mm"><img src="https://docs.keyestudio.com/projects/KS0559/en/latest/_images/A321.png" alt="Part 6 finished prototype"></div></figure></div>
+    </div></div>
+  </div>
+
+  <footer class="folio"><img src="assets/xplor-logomark.png" alt=""><span>Part 6 of 8</span><span class="spacer"></span><span class="num"></span></footer>
+</section>
+
+<!-- ===================== PART 7 ===================== -->
+<section class="page c-pink" id="part-7">
+  <div class="part-head">
+    <div class="part-badge"><div><small>PART</small><span>7</span></div></div>
+    <div class="stack" style="gap:1.5mm">
+      <span class="eyebrow">The build</span>
+      <h2>Part 7</h2>
+      <p class="sub">The last mechanical step before wiring.</p>
+      <div class="progress" aria-label="Part 7 of 8"><i class="done"></i><i class="done"></i><i class="done"></i><i class="done"></i><i class="done"></i><i class="done"></i><i class="now"></i><i></i></div>
+    </div>
+  </div>
+
+  <div class="step-row">
+    <div class="step"><div class="k">7.1</div><div class="body">
+      <h3>Components needed</h3>
+      <div class="figs"><figure><div class="frame" style="--h:46mm"><img src="https://docs.keyestudio.com/projects/KS0559/en/latest/_images/A331.png" alt="Part 7 components"></div></figure></div>
+    </div></div>
+    <div class="step"><div class="k">7.2</div><div class="body">
+      <h3>Installation diagram</h3>
+      <div class="figs" style="--cols:2">
+        <figure><div class="frame" style="--h:62mm"><img src="https://docs.keyestudio.com/projects/KS0559/en/latest/_images/A341.png" alt="Part 7 installation, step A"></div><figcaption>Step A</figcaption></figure>
+        <figure><div class="frame" style="--h:62mm"><img src="https://docs.keyestudio.com/projects/KS0559/en/latest/_images/A351.png" alt="Part 7 installation, step B"></div><figcaption>Step B</figcaption></figure>
+      </div>
+    </div></div>
+    <div class="step"><div class="k">7.3</div><div class="body">
+      <h3>Check your prototype</h3>
+      <div class="figs"><figure><div class="frame" style="--h:52mm"><img src="https://docs.keyestudio.com/projects/KS0559/en/latest/_images/A361.png" alt="Part 7 finished prototype"></div></figure></div>
+    </div></div>
+  </div>
+
+  <footer class="folio"><img src="assets/xplor-logomark.png" alt=""><span>Part 7 of 8</span><span class="spacer"></span><span class="num"></span></footer>
+</section>
+
+<!-- ===================== PART 8 (a) WIRING ===================== -->
+<section class="page c-blue" id="wiring">
+  <div class="part-head">
+    <div class="part-badge"><div><small>PART</small><span>8</span></div></div>
+    <div class="stack" style="gap:1.5mm">
+      <span class="eyebrow">05 · Wiring it up</span>
+      <h2>Part 8 · Wiring</h2>
+      <p class="sub">Connect the motors, sensors and power.</p>
+      <div class="progress" aria-label="Part 8 of 8"><i class="done"></i><i class="done"></i><i class="done"></i><i class="done"></i><i class="done"></i><i class="done"></i><i class="done"></i><i class="now"></i></div>
+    </div>
+  </div>
+
+  <div class="step"><div class="k">8.1</div><div class="body">
+    <h3>Wiring diagram</h3>
+    <div class="figs"><figure><div class="frame" style="--h:70mm"><img src="https://docs.keyestudio.com/projects/KS0559/en/latest/_images/A371.png" alt="Full wiring diagram"></div></figure></div>
+  </div></div>
+
+  <div class="stack" style="gap:2mm">
+    <h3 class="bracket">Motor connections</h3>
+    <div class="wire">
+      <div><b>Motor M1</b><span class="to">→ B1</span></div>
+      <div><b>Motor M2</b><span class="to">→ B</span></div>
+      <div><b>Motor M3</b><span class="to">→ A</span></div>
+      <div><b>Motor M4</b><span class="to">→ A1</span></div>
+    </div>
+  </div>
+
+  <div class="step"><div class="k">8.2</div><div class="body">
+    <h3>Connect the motors</h3>
+    <div class="figs" style="--cols:2">
+      <figure><div class="frame" style="--h:52mm"><img src="https://docs.keyestudio.com/projects/KS0559/en/latest/_images/A381.png" alt="M2 to interface B, M3 to interface A"></div><figcaption>8.2 · M2 → B, M3 → A</figcaption></figure>
+      <figure><div class="frame" style="--h:52mm"><img src="https://docs.keyestudio.com/projects/KS0559/en/latest/_images/A391.png" alt="M1 to interface B1, M4 to interface A1"></div><figcaption>8.3 · M1 → B1, M4 → A1</figcaption></figure>
+    </div>
+  </div></div>
+
+  <footer class="folio"><img src="assets/xplor-logomark.png" alt=""><span>Part 8 of 8</span><span class="spacer"></span><span class="num"></span></footer>
+</section>
+
+<!-- ===================== PART 8 (b) ===================== -->
+<section class="page c-blue" id="wiring-2">
+  <div class="stack" style="gap:1.5mm">
+    <span class="eyebrow">Part 8 · continued</span>
+    <h2 class="bracket">Sensors and power</h2>
+  </div>
+
+  <div class="figs" style="--cols:2">
+    <figure><div class="frame" style="--h:50mm"><img src="https://docs.keyestudio.com/projects/KS0559/en/latest/_images/A401.png" alt="Line-tracking sensor wiring"></div><figcaption>8.4 · 3-channel line-tracking sensor</figcaption></figure>
+    <figure><div class="frame" style="--h:50mm"><img src="https://docs.keyestudio.com/projects/KS0559/en/latest/_images/A41.png" alt="Battery power connected to BAT"></div><figcaption>8.5 · Power supply → BAT</figcaption></figure>
+    <figure><div class="frame" style="--h:50mm"><img src="https://docs.keyestudio.com/projects/KS0559/en/latest/_images/A42.png" alt="Ultrasonic sensor wiring, view 1"></div><figcaption>8.6 · Ultrasonic sensor</figcaption></figure>
+    <figure><div class="frame" style="--h:50mm"><img src="https://docs.keyestudio.com/projects/KS0559/en/latest/_images/A43.png" alt="Ultrasonic sensor wiring, view 2"></div><figcaption>8.6 · Ultrasonic sensor (continued)</figcaption></figure>
+    <figure><div class="frame" style="--h:50mm"><img src="https://docs.keyestudio.com/projects/KS0559/en/latest/_images/A441.png" alt="8x16 LED board wiring, view 1"></div><figcaption>8.7 · 8×16 LED board</figcaption></figure>
+    <figure><div class="frame" style="--h:50mm"><img src="https://docs.keyestudio.com/projects/KS0559/en/latest/_images/A45.png" alt="8x16 LED board wiring, view 2"></div><figcaption>8.7 · 8×16 LED board (continued)</figcaption></figure>
+  </div>
+
+  <footer class="folio"><img src="assets/xplor-logomark.png" alt=""><span>Part 8 of 8</span><span class="spacer"></span><span class="num"></span></footer>
+</section>
+
+<!-- ===================== PART 8 (c) ===================== -->
+<section class="page c-blue" id="wiring-3">
+  <div class="stack" style="gap:1.5mm">
+    <span class="eyebrow">Part 8 · continued</span>
+    <h2 class="bracket">Servo, Bluetooth and finish</h2>
+  </div>
+
+  <div class="figs" style="--cols:2">
+    <figure><div class="frame" style="--h:50mm"><img src="https://docs.keyestudio.com/projects/KS0559/en/latest/_images/A46.png" alt="Servo wiring, view 1"></div><figcaption>8.8 · Servo</figcaption></figure>
+    <figure><div class="frame" style="--h:50mm"><img src="https://docs.keyestudio.com/projects/KS0559/en/latest/_images/A47.png" alt="Servo wiring, view 2"></div><figcaption>8.8 · Servo (continued)</figcaption></figure>
+  </div>
+
+  <div class="figs"><figure><div class="frame" style="--h:50mm"><img src="https://docs.keyestudio.com/projects/KS0559/en/latest/_images/A48.png" alt="Bluetooth module and jumper caps plugged in"></div><figcaption>8.9 · Plug in the Bluetooth module and jumper caps</figcaption></figure></div>
+
+  <div class="tip warn"><span class="capsule pink">Important</span><p><strong>Remove the Bluetooth module before you upload any code</strong>, or the upload will fail. Plug it back in once the upload has finished.</p></div>
+
+  <div class="figs"><figure><div class="frame" style="--h:62mm"><img src="https://docs.keyestudio.com/projects/KS0559/en/latest/_images/A49.png" alt="The complete robot"></div><figcaption>8.10 · Complete prototype</figcaption></figure></div>
+
+  <footer class="folio"><img src="assets/xplor-logomark.png" alt=""><span>Part 8 of 8</span><span class="spacer"></span><span class="num"></span></footer>
+</section>
+
+<!-- ===================== FINAL CHECK ===================== -->
+<section class="page" id="check">
+  <div class="stack">
+    <span class="eyebrow">06 · Final check</span>
+    <h2 class="bracket">Ready for launch?</h2>
+    <p class="sub">Go through this list before you put batteries in.</p>
+  </div>
+
+  <div class="grid-2">
+    <div class="card">
+      <h3>Build</h3>
+      <ul class="checklist">
+        <li>All four wheels turn freely and don't rub the chassis</li>
+        <li>Every board sits flat on its pillars</li>
+        <li>No screws are loose and none are left over</li>
+        <li>The ultrasonic sensor faces straight ahead</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3>Wiring</h3>
+      <ul class="checklist">
+        <li>M1 → B1, M2 → B, M3 → A, M4 → A1</li>
+        <li>Line-tracking, ultrasonic, LED board and servo are plugged in</li>
+        <li>Battery lead is in the BAT port</li>
+        <li>Wires are tied back clear of the wheels</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="card navy">
+    <h3>First power-on</h3>
+    <ol class="stack" style="margin:0;padding-left:5mm;gap:2mm">
+      <li>Insert the batteries, checking + and − against the holder.</li>
+      <li>Remove the Bluetooth module, connect the USB cable and upload your first project.</li>
+      <li>Unplug USB, refit the Bluetooth module and switch on.</li>
+      <li>Lift the car off the table the first time the motors run, so it can't drive off the edge.</li>
+    </ol>
+  </div>
+
+  <div class="stack" style="gap:2mm">
+    <h3 class="bracket">If something isn't working</h3>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>What you see</th><th>What to check</th></tr></thead>
+        <tbody>
+          <tr><td>Code won't upload</td><td>Take out the Bluetooth module. Check the driver is installed and the right port is selected.</td></tr>
+          <tr><td>A wheel spins the wrong way or not at all</td><td>Check that motor's plug is in the port listed in Part 8.</td></tr>
+          <tr><td>Sensor looks sideways</td><td>Re-run the 90° servo code from Part 4 and refit the cradle head.</td></tr>
+          <tr><td>Nothing turns on</td><td>Check battery direction, battery charge and the BAT connection.</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <footer class="folio"><img src="assets/xplor-logomark.png" alt=""><span>Build your 4WD robot</span><span class="spacer"></span><span class="num"></span></footer>
+</section>
+
+<!-- ===================== WHAT'S NEXT ===================== -->
+<section class="page" id="next">
+  <div class="stack">
+    <span class="eyebrow">07 · What's next</span>
+    <h2 class="bracket">Now bring it to life</h2>
+    <p class="sub">Your robot is built. Next, you teach it what to do.</p>
+  </div>
+
+  <p class="lead">There are 17 projects to code, starting with a single blinking LED and ending with a multi-purpose Bluetooth car. You can work through them in two ways.</p>
+
+  <div class="grid-2">
+    <div class="card">
+      <span class="capsule blue" style="align-self:start">Arduino IDE</span>
+      <p>Write real C code. Good for learners who are ready to type their programs line by line.</p>
+    </div>
+    <div class="card">
+      <span class="capsule yellow" style="align-self:start">KidsBlock</span>
+      <p>Drag and drop code blocks. A great first step into programming, with the same 17 projects.</p>
+    </div>
+  </div>
+
+  <ol class="projects">
+    <li><span class="n">01</span><span>LED blink</span></li>
+    <li><span class="n">02</span><span>Adjust LED brightness</span></li>
+    <li><span class="n">03</span><span>Line-tracking sensor</span></li>
+    <li><span class="n">04</span><span>Servo control</span></li>
+    <li><span class="n">05</span><span>Ultrasonic sensor</span></li>
+    <li><span class="n">06</span><span>IR reception</span></li>
+    <li><span class="n">07</span><span>Bluetooth remote control</span></li>
+    <li><span class="n">08</span><span>Motor driving and speed control</span></li>
+    <li><span class="n">09</span><span>Facial expression LED board</span></li>
+    <li><span class="n">10</span><span>Restricting smart car</span></li>
+    <li><span class="n">11</span><span>Line-tracking smart car</span></li>
+    <li><span class="n">12</span><span>Ultrasonic following smart car</span></li>
+    <li><span class="n">13</span><span>Obstacle-avoidance smart car</span></li>
+    <li><span class="n">14</span><span>IR remote control smart car</span></li>
+    <li><span class="n">15</span><span>Bluetooth control smart car</span></li>
+    <li><span class="n">16</span><span>Bluetooth speed control smart car</span></li>
+    <li><span class="n">17</span><span>Multi-purpose Bluetooth smart car</span></li>
+  </ol>
+
+  <div class="tip info"><span class="capsule blue">Resources</span><p>Code files, drivers and project guides are in the Keyestudio KS0559 documentation: <a href="https://docs.keyestudio.com/projects/KS0559/en/latest/">docs.keyestudio.com/projects/KS0559</a></p></div>
+
+  <footer class="folio"><img src="assets/xplor-logomark.png" alt=""><span>Build your 4WD robot</span><span class="spacer"></span><span class="num"></span></footer>
+</section>
+
+<!-- ===================== BACK COVER ===================== -->
+<section class="page back" id="back">
+  <div class="deco-dots dots" aria-hidden="true"></div>
+  <img class="logo" src="assets/xplor-logo-light.png" alt="Xplor Academy">
+  <h2 style="color:var(--white)">Create the future</h2>
+  <p class="sub">Xplor Academy builds future-ready digital skills through structured, hands-on learning in coding, AI, robotics and design.</p>
+  <div class="tags" style="display:flex;gap:8px;flex-wrap:wrap;justify-content:center">
+    <span class="capsule pink">Xplore</span>
+    <span class="capsule blue">Learn</span>
+    <span class="capsule yellow">Progress</span>
+  </div>
+  <p style="font-size:7.5pt;color:var(--lavender);max-width:60ch;position:absolute;bottom:12mm;left:16mm;right:16mm;margin:auto">Assembly diagrams and product photos © Keyestudio, from the KS0559 documentation.</p>
+</section>
+
+<script>
+  // If a diagram can't load (offline, or blocked), show a labelled placeholder instead of a broken image.
+  document.querySelectorAll("figure img, td.pic img, .hero img").forEach(function (img) {
+    function fail() {
+      var fig = img.closest("figure");
+      if (fig) {
+        fig.classList.add("missing");
+        img.parentElement.textContent = img.alt + " (image loads from docs.keyestudio.com)";
+      } else {
+        img.style.visibility = "hidden";
+      }
+    }
+    if (img.complete && img.naturalWidth === 0) fail();
+    else img.addEventListener("error", fail);
+  });
+</script>
+</body>
+</html>
