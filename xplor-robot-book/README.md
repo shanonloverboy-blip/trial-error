@@ -7,6 +7,8 @@ An A4 build book for the Keyestudio 4WD Bluetooth Multi-purpose Car V2.0 (KS0559
 1. Open `index.html` in Chrome or Edge (keep the `assets/` folder next to it).
 2. Print → Destination **Save as PDF**, Paper **A4**, Margins **None**, and tick **Background graphics**.
 
+`Build-Your-4WD-Robot-layout-preview.pdf` is a layout preview of the printed book. It was rendered without the Keyestudio images, so every figure shows its labelled placeholder. To get the full version with images, print `index.html` as described above while you're online.
+
 The book has 19 pages: cover, welcome and contents, robot overview, kit list, preparation, Parts 1–8 of the build (Part 4 runs to 2 pages and Part 8 to 3), final check, next steps, and back cover.
 
 ## Images
